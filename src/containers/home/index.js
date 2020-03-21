@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useChess from '../../hooks/chess';
 import { Container, Chess as ChessBoard, Overlay, Numbers, Number, Letters, Letter, Board, Row } from './style';
 import Line from './components/line';
@@ -20,7 +20,6 @@ const getCells = () => {
 export default ({}) => {
   const [moveStart, setMoveStart] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState(null);
-  const [timeIndex, setTimeIndex] = useState(0);
   const [moves, setMoves] = useState([]);
   const chess = useChess();
 
@@ -55,10 +54,6 @@ export default ({}) => {
     moves.forEach(move => {
       document.getElementById(move.slice(-2)).classList.add('highlighted');
     });
-  };
-
-  const timeTravel = index => {
-    setTimeIndex(index);
   };
 
   const gameOver = chess.game_over();
@@ -110,13 +105,6 @@ export default ({}) => {
         <Numbers />
       </ChessBoard>
       <PlayerContainer name="White" moves={moves} turn={chess.turn()} />
-      {/* <input
-        type="range"
-        min="0"
-        max={chess.history().length}
-        value={timeIndex}
-        onChange={e => timeTravel(e.target.value)}
-      /> */}
     </Container>
   );
 };
