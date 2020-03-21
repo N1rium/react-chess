@@ -43,7 +43,7 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart }) => {
       onDrop={onDrop}
     >
       {cell && (
-        <Pawn isBlack={cell.color == 'b'} draggable="true" onDragStart={onDragStart}>
+        <Pawn isBlack={cell.color == 'b'} draggable="true" onDragStart={onDragStart} onDrop={onDrop}>
           <FontAwesomeIcon icon={pieceMap[cell.type]} />
         </Pawn>
       )}
