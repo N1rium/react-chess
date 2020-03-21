@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import useChess from '../../hooks/chess';
 import { Container, Chess as ChessBoard, Overlay, Numbers, Number, Letters, Letter, Board, Row } from './style';
-import Line from './components/line';
-import Cell from './components/cell';
-import PlayerContainer from './components/player-container';
+import { Cell, Line, PlayerContainer } from './components';
 
 const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 const numbers = [8, 7, 6, 5, 4, 3, 2, 1];
