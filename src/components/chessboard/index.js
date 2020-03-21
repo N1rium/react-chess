@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import useChess from '../../hooks/chess';
-import { Container, Chess as ChessBoard, Overlay, Numbers, Number, Letters, Letter, Board, Row } from './style';
+import { Container, Chess, Overlay, Numbers, Number, Letters, Letter, Board, Row } from './style';
 import { Cell, Line, PlayerContainer } from './components';
 
 const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
@@ -15,11 +14,13 @@ const getCells = () => {
   return result;
 };
 
-export default ({}) => {
+export default ({ chess, white = {}, black = {} }) => {
   const [moveStart, setMoveStart] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState(null);
   const [moves, setMoves] = useState([]);
-  const chess = useChess();
+
+  const { name: whiteName = 'White' } = white;
+  const { name: blackName = 'Black' } = black;
 
   const move = args => {
     setMoves([...moves, chess.move(args)]);
@@ -59,15 +60,15 @@ export default ({}) => {
 
   return (
     <Container>
-      <PlayerContainer name="Black" moves={moves} isBlack turn={chess.turn()} />
-      <ChessBoard>
+      <PlayerContainer name={blackName} moves={moves} isBlack turn={chess.turn()} />
+      <Chess>
         {(gameOver || draw) && (
           <Overlay>
             <h2>Game Over</h2>
             <button onClick={reset}>Reset</button>
           </Overlay>
         )}
-        <Numbers onClick={() => chess.load('4r3/8/2p2PPk/1p6/pP2p1R1/P1B5/2P2K2/3r4 w - - 1 45')}>
+        <Numbers>
           {numbers.map(number => (
             <Number key={number}>{number}</Number>
           ))}
@@ -102,8 +103,8 @@ export default ({}) => {
           </Letters>
         </div>
         <Numbers />
-      </ChessBoard>
-      <PlayerContainer name="White" moves={moves} turn={chess.turn()} />
+      </Chess>
+      <PlayerContainer name={whiteName} moves={moves} turn={chess.turn()} />
     </Container>
   );
 };
