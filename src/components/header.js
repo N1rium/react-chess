@@ -23,7 +23,7 @@ const Title = styled.h1`
 
 const Contacts = styled.div``;
 
-const Contact = styled.div`
+const Contact = styled.a.attrs({ href: 'https://github.com/N1rium/react-chess', target: '_blank' })`
   color: #fff;
   will-change: opacity;
   transition: opacity 0.15s ease-in-out;
