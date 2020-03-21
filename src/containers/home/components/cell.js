@@ -13,9 +13,9 @@ const Cell = styled.div.attrs({ className: 'cell' })`
   &.highlighted {
     &:after {
       content: '';
-      width: 8px;
-      height: 8px;
-      background: #fff;
+      width: 12px;
+      height: 12px;
+      background: #fbf076;
       border-radius: 50%;
       position: absolute;
     }
