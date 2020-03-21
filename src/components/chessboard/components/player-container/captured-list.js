@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import pieceMap from '../containers/home/pieces';
+import pieceMap from '../../pieces';
 
 const CapturedList = styled.div`
   display: flex;

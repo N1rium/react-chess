@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import pieceMap from '../pieces';
+import Pawn from 'Components/styled/pawn';
 
 const Cell = styled.div.attrs({ className: 'cell' })`
   width: ${props => `${props.theme.unitSize}px`};
@@ -20,30 +21,25 @@ const Cell = styled.div.attrs({ className: 'cell' })`
       position: absolute;
     }
   }
-  &.active {
-    .pawn {
-      transform: scale(1.25);
-      opacity: 0.8;
-    }
-  }
-`;
-
-const Pawn = styled.div.attrs({ className: 'pawn' })`
-  color: ${props => (props.isBlack ? '#000' : '#fff')};
 `;
 
 export default ({ cell, moveStart, square, onClick, onDrop, onDragStart }) => {
   return (
     <Cell
       id={square}
-      className={`${square == moveStart ? 'active' : ''}`}
       isBlack={cell && cell.color === 'b'}
       onClick={onClick}
       onDragOver={e => e.preventDefault()}
       onDrop={onDrop}
     >
       {cell && (
-        <Pawn isBlack={cell.color == 'b'} draggable="true" onDragStart={onDragStart} onDrop={onDrop}>
+        <Pawn
+          isBlack={cell.color == 'b'}
+          active={square == moveStart}
+          draggable="true"
+          onDragStart={onDragStart}
+          onDrop={onDrop}
+        >
           <FontAwesomeIcon icon={pieceMap[cell.type]} />
         </Pawn>
       )}

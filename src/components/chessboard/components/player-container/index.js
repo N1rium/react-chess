@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import CapturedList from '../../../components/captured-list';
+import CapturedList from './captured-list';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 

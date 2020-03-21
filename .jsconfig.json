@@ -1,0 +1,19 @@
+{
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES6",
+    "sourceMap": true,
+    "inlineSources": true,
+    "jsx": "react",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": "src",
+    "paths": {
+      "Hooks/*": ["./hooks/*"],
+      "Components/*": ["./components/*"],
+      "Containers/*": ["./containers/*"]
+    }
+  }
+}
