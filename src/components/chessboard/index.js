@@ -14,24 +14,13 @@ const getCells = () => {
   return result;
 };
 
-export default ({ chess, white = {}, black = {} }) => {
+export default ({ chess, white = {}, black = {}, onMove = null, onReset = null }) => {
   const [moveStart, setMoveStart] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState(null);
-  const [moves, setMoves] = useState([]);
 
   const { name: whiteName = 'White' } = white;
   const { name: blackName = 'Black' } = black;
-
-  const move = args => {
-    setMoves([...moves, chess.move(args)]);
-  };
-
-  const reset = () => {
-    chess.reset();
-    setMoveStart(null);
-    setPossibleMoves(null);
-    setMoves([]);
-  };
+  const { moveHistory, gameOver, draw } = chess;
 
   const clearCells = () => {
     getCells().forEach(cell => document.getElementById(cell).classList.remove('highlighted'));
@@ -41,7 +30,7 @@ export default ({ chess, white = {}, black = {} }) => {
     clearCells();
     if (moveStart) {
       if (possibleMoves.includes(square)) {
-        move({ from: moveStart, to: square, promotion: 'q' });
+        onMove({ from: moveStart, to: square, promotion: 'q' });
         setMoveStart(null);
         return;
       }
@@ -55,17 +44,14 @@ export default ({ chess, white = {}, black = {} }) => {
     });
   };
 
-  const gameOver = chess.game_over();
-  const draw = chess.in_draw();
-
   return (
     <Container>
-      <PlayerContainer name={blackName} moves={moves} isBlack turn={chess.turn()} />
+      <PlayerContainer name={blackName} moves={moveHistory} isBlack turn={chess.turn()} />
       <Chess>
         {(gameOver || draw) && (
           <Overlay>
             <h2>Game Over</h2>
-            <button onClick={reset}>Reset</button>
+            <button onClick={onReset}>Reset</button>
           </Overlay>
         )}
         <Numbers>
@@ -94,7 +80,7 @@ export default ({ chess, white = {}, black = {} }) => {
                 })}
               </Row>
             ))}
-            {moves.length > 0 && <Line move={moves[moves.length - 1]} />}
+            {moveHistory.length > 0 && <Line move={moveHistory[moveHistory.length - 1]} />}
           </Board>
           <Letters>
             {letters.map(letter => (
@@ -104,7 +90,7 @@ export default ({ chess, white = {}, black = {} }) => {
         </div>
         <Numbers />
       </Chess>
-      <PlayerContainer name={whiteName} moves={moves} turn={chess.turn()} />
+      <PlayerContainer name={whiteName} moves={moveHistory} turn={chess.turn()} />
     </Container>
   );
 };
