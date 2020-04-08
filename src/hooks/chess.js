@@ -4,9 +4,7 @@ import Chess from 'chess.js';
 
 const useChess = () => {
   const [chess, setChess] = useState(new Chess());
-  useEffect(() => {
-    console.log('updated');
-  }, [chess]);
+  useEffect(() => {}, [chess]);
   return chess;
 };
 

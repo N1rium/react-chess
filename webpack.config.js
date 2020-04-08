@@ -41,10 +41,6 @@ module.exports = args => {
           ],
         },
         {
-          test: /\.(css|scss|sass$)/,
-          loader: ['style-loader', 'css-loader', 'sass-loader'],
-        },
-        {
           test: /\.(png|jpg|gif|svg)$/,
           use: [
             {

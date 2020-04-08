@@ -1,37 +1,48 @@
-import React, { useState } from 'react';
-import { Container, Chess, Overlay, Numbers, Number, Letters, Letter, Board, Row } from './style';
-import { Cell, Line, PlayerContainer } from './components';
+import React, { useState, useEffect } from 'react';
+import { Board, Row } from './style';
+import Cell from './components/cell';
+import Chess from 'chess.js';
 
-const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-const numbers = [8, 7, 6, 5, 4, 3, 2, 1];
-const getCells = () => {
-  let result = [];
-  letters.forEach(letter => {
-    numbers.forEach(number => {
-      result.push(`${letter}${number}`);
-    });
-  });
-  return result;
-};
-
-export default ({ chess, white = {}, black = {}, onMove = null, onReset = null }) => {
+export default ({
+  fen,
+  onMove = null,
+  orientationWhite = true,
+  showPossibleMoves = true,
+  showIndexes = true,
+  colors = {},
+  size = '100%',
+  side = null,
+}) => {
   const [moveStart, setMoveStart] = useState(null);
-  const [possibleMoves, setPossibleMoves] = useState(null);
+  const [possibleMoves, setPossibleMoves] = useState([]);
+  const [chess, setChess] = useState(null);
 
-  const { name: whiteName = 'White' } = white;
-  const { name: blackName = 'Black' } = black;
-  const { moveHistory, gameOver, draw } = chess;
+  const { even = '#ead9b5', odd = '#a98865' } = colors;
+  const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  const numbers = [8, 7, 6, 5, 4, 3, 2, 1];
 
-  const clearCells = () => {
-    getCells().forEach(cell => document.getElementById(cell).classList.remove('highlighted'));
+  useEffect(() => {
+    if (fen) setChess(new Chess(fen));
+  }, [fen]);
+
+  const move = move => {
+    chess.move(move) && onMove && onMove(move);
+  };
+
+  const getBoard = board => {
+    if (orientationWhite) return board;
+    let clone = [...board.reverse()];
+    let result = [];
+    clone.forEach(row => result.push([...row.reverse()]));
+    return result;
   };
 
   const onCellSelect = square => {
-    clearCells();
     if (moveStart) {
       if (possibleMoves.includes(square)) {
-        onMove({ from: moveStart, to: square, promotion: 'q' });
+        move({ from: moveStart, to: square, promotion: 'q' });
         setMoveStart(null);
+        setPossibleMoves([]);
         return;
       }
     }
@@ -39,58 +50,35 @@ export default ({ chess, white = {}, black = {}, onMove = null, onReset = null }
     let re = /[a-h][1-9]/;
     const moves = chess.moves({ square, verbose: true }).map(move => move && move.to && move.to.match(re)[0]);
     setPossibleMoves(moves.map(move => move.slice(-2)));
-    moves.forEach(move => {
-      document.getElementById(move.slice(-2)).classList.add('highlighted');
-    });
   };
 
+  if (!chess) return <Board size={size} />;
+
+  const board = getBoard(chess.board());
+  const _letters = orientationWhite ? letters : [...letters].reverse();
+  const _numbers = orientationWhite ? numbers : [...numbers].reverse();
   return (
-    <Container>
-      <PlayerContainer name={blackName} moves={moveHistory} isBlack turn={chess.turn()} />
-      <Chess>
-        {(gameOver || draw) && (
-          <Overlay>
-            <h2>Game Over</h2>
-            <button onClick={onReset}>Reset</button>
-          </Overlay>
-        )}
-        <Numbers>
-          {numbers.map(number => (
-            <Number key={number}>{number}</Number>
-          ))}
-        </Numbers>
-        <div>
-          <Letters />
-          <Board>
-            {chess.board().map((row, i) => (
-              <Row key={i}>
-                {row.map((cell, j) => {
-                  const square = `${letters[j]}${numbers[i]}`;
-                  return (
-                    <Cell
-                      key={j}
-                      cell={cell}
-                      moveStart={moveStart}
-                      square={square}
-                      onClick={() => onCellSelect(square)}
-                      onDrop={e => onCellSelect(e.target.id)}
-                      onDragStart={() => onCellSelect(square)}
-                    />
-                  );
-                })}
-              </Row>
-            ))}
-            {moveHistory.length > 0 && <Line move={moveHistory[moveHistory.length - 1]} />}
-          </Board>
-          <Letters>
-            {letters.map(letter => (
-              <Letter key={letter}>{letter.toUpperCase()}</Letter>
-            ))}
-          </Letters>
-        </div>
-        <Numbers />
-      </Chess>
-      <PlayerContainer name={whiteName} moves={moveHistory} turn={chess.turn()} />
-    </Container>
+    <Board size={size}>
+      {board.map((row, i) => (
+        <Row evenColor={even} oddColor={odd} key={i}>
+          {row.map((cell, j) => {
+            const square = `${_letters[j]}${_numbers[i]}`;
+            return (
+              <Cell
+                key={square}
+                cell={cell}
+                moveStart={moveStart}
+                square={square}
+                highlight={showPossibleMoves && possibleMoves.includes(square)}
+                showIndexes={showIndexes}
+                onClick={() => onCellSelect(square)}
+                onDrop={e => onCellSelect(e.target.id)}
+                onDragStart={() => onCellSelect(square)}
+              />
+            );
+          })}
+        </Row>
+      ))}
+    </Board>
   );
 };

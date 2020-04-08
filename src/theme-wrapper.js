@@ -17,20 +17,80 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: #1e1e2d;
-    font-family: sans-serif;
+    background: #121212;
+    color: #E0E0E0;
+    overflow: hidden;
+  }
+
+  body, input {
+    font-family: circular, sans-serif;
   }
 
   #app-container {
     width: 100%;
     height: 100%;
-    text-align: center;
+    overflow-y: auto;
+    .app-content {
+      height: calc(100% - 48px);
+      width: 100%;
+    }
+  }
+
+  button {
+    border-radius: 3px;
+    background: #65B260;
+    outline: none;
+    border: none;
+    padding: 0.5em 1.5em;
+    color: #f0f4f2;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
+    &:active {
+      opacity: 0.8;
+    }
+  }
+
+  .hover-btn {
+    will-change: opacity;
+    transition: opacity 0.15s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  section {
+    position: relative;
+    background: #232323;
+    border-radius: 3px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
+    border: 1px solid rgba(0,0,0,0.5);
+    border-radius: 3px;
+    header {
+      background: #232323;
+      padding: 10px;
+      font-weight: bold;
+      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    section {
+      box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.24);
+    }
   }
 `;
 
 const ThemeWrapper = ({ children }) => {
   const theme = {
     unitSize: 64,
+    red: '#C63543',
+    green: '#65B260',
+    blue: '#4B84DA',
   };
   return (
     <>
