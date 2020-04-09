@@ -86,17 +86,12 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const ThemeWrapper = ({ children }) => {
-  const theme = {
-    unitSize: 64,
-    red: '#C63543',
-    green: '#65B260',
-    blue: '#4B84DA',
-  };
+  const theme = {};
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </>
+      {children}
+    </ThemeProvider>
   );
 };
 
