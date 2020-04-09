@@ -64,7 +64,7 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlig
       onDragStart={e => {
         const img = new Image();
         img.src = wikipedia[`${cell.color}${cell.type}`];
-        e.dataTransfer.setDragImage(img, 22.5, 22.5);
+        e.dataTransfer.setDragImage(img, img.width / 2, img.width / 2);
         onDragStart(e);
       }}
       onDrop={onDrop}
