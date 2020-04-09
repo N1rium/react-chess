@@ -3,7 +3,7 @@ import ChessBoard from 'Components/chessboard';
 import Chat from 'Components/chat';
 import PlaybackModule from 'Components/playback-module';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 import { GET_MATCH, SEND_MOVE, SEND_CHAT_MESSAGE, MOVE_SUBSCRIPTION, CHAT_SUBSCRIPTION } from './queries';
 
@@ -19,12 +19,13 @@ import {
   PlaybackChess,
   PlayerA,
   PlayerB,
-  CogWheel,
+  IconBtn,
 } from './style';
 
 export default () => {
   const [fen, setFen] = useState(null);
   const [fens, setFens] = useState([]);
+  const [flippedBoard, setFlippedBoard] = useState(false);
   const [fenIndex, setFenIndex] = useState(0);
   const [chatMessages, setChatMessages] = useState([]);
 
@@ -100,9 +101,9 @@ export default () => {
         <header>
           <div />
           <div>Chat</div>
-          <CogWheel>
+          <IconBtn>
             <FontAwesomeIcon icon={faCog} />
-          </CogWheel>
+          </IconBtn>
         </header>
         <Chat
           messages={chatMessages}
@@ -110,9 +111,16 @@ export default () => {
         ></Chat>
       </ChatContainer>
       <Game>
-        <GameChessboard>
-          <ChessBoard fen={fen} onMove={onMove} onReset={onReset} />
-        </GameChessboard>
+        <header>
+          <IconBtn onClick={() => setFlippedBoard(!flippedBoard)}>
+            <FontAwesomeIcon icon={faSyncAlt} />
+          </IconBtn>
+        </header>
+        <div>
+          <GameChessboard>
+            <ChessBoard fen={fen} flip={flippedBoard} onMove={onMove} onReset={onReset} />
+          </GameChessboard>
+        </div>
       </Game>
     </Layout>
   );

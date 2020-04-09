@@ -21,9 +21,18 @@ const Layout = styled.div`
 
 const Game = styled.section`
   grid-area: game;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  & > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const GameChessboard = styled.div`
@@ -50,7 +59,8 @@ const InfoContainer = styled.section`
 
 const PlaybackContainer = styled.section`
   grid-area: playback;
-  footer {
+  footer,
+  header {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,7 +86,7 @@ const PlayerB = styled(PlayerContainer)`
   grid-area: playerb;
 `;
 
-const CogWheel = styled.div.attrs({ className: 'hover-btn' })``;
+const IconBtn = styled.div.attrs({ className: 'hover-btn' })``;
 
 export {
   Layout,
@@ -88,5 +98,5 @@ export {
   PlaybackChess,
   PlayerA,
   PlayerB,
-  CogWheel,
+  IconBtn,
 };
