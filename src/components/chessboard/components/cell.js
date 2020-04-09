@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import pieceMap, { wikipedia } from '../pieces';
+import { wikipedia } from '../pieces';
 import Pawn from 'Components/styled/pawn';
 
-const Cell = styled.div.attrs(props => ({ className: `cell ${props.highlight ? 'highlighted' : ''}` }))`
+const Cell = styled.div.attrs(props => ({
+  className: `cell ${props.highlight ? 'highlighted' : ''} ${props.grabbable ? 'grabbable' : ''}`,
+}))`
   position: relative;
   width: 12.5%;
   height: 100%;
@@ -21,6 +22,12 @@ const Cell = styled.div.attrs(props => ({ className: `cell ${props.highlight ? '
       border-radius: 50%;
       position: absolute;
       pointer-events: none;
+    }
+  }
+  &.grabbable {
+    cursor: grab;
+    &:active {
+      cursor: grabbing;
     }
   }
 `;
@@ -47,6 +54,7 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlig
     <Cell
       id={square}
       highlight={highlight}
+      grabbable={cell && cell.color}
       isBlack={cell && cell.color === 'b'}
       onClick={onClick}
       onDragOver={e => e.preventDefault()}
