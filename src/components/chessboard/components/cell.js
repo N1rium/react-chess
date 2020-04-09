@@ -37,6 +37,7 @@ const Index = styled.div`
   font-size: 0.33em;
   font-weight: bold;
   visibility: hidden;
+  user-select: none;
 `;
 
 const Number = styled(Index).attrs({ className: 'index cell-number' })`
