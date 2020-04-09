@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const Board = styled.div`
   position: relative;
-  cursor: pointer;
   width: ${props => props.size};
   height: ${props => props.size};
 `;
