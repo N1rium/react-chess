@@ -70,14 +70,16 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
     border: 1px solid rgba(0,0,0,0.5);
     border-radius: 3px;
-    header {
+    header, footer {
       background: #232323;
       padding: 10px;
+    }
+    header {
       font-weight: bold;
       box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    }
+    footer {
+      box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.5);
     }
     section {
       box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.24);

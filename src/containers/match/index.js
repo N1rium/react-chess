@@ -7,6 +7,8 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 import { GET_MATCH, SEND_MOVE, SEND_CHAT_MESSAGE, MOVE_SUBSCRIPTION, CHAT_SUBSCRIPTION } from './queries';
 
+import PlayerContainer from './components/player-container';
+
 import {
   Layout,
   Game,
@@ -75,8 +77,12 @@ export default () => {
   return (
     <Layout>
       <InfoContainer></InfoContainer>
-      <PlayerA>Player A</PlayerA>
-      <PlayerB>Player B</PlayerB>
+      <PlayerA>
+        <PlayerContainer name="S. Ikonen" />
+      </PlayerA>
+      <PlayerB>
+        <PlayerContainer name="n1rium" />
+      </PlayerB>
       <PlaybackContainer>
         <header>
           <div />
@@ -86,7 +92,9 @@ export default () => {
         <PlaybackChess>
           <ChessBoard fen={fens[fenIndex]} showIndexes={false} />
         </PlaybackChess>
-        <PlaybackModule items={fens} onChange={i => setFenIndex(i)} />
+        <footer>
+          <PlaybackModule items={fens} onChange={i => setFenIndex(i)} />
+        </footer>
       </PlaybackContainer>
       <ChatContainer>
         <header>

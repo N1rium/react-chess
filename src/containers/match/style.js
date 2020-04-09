@@ -37,6 +37,11 @@ const ChatContainer = styled.section`
   .chat-window {
     height: calc(100% - 45px);
   }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 const InfoContainer = styled.section`
@@ -45,19 +50,27 @@ const InfoContainer = styled.section`
 
 const PlaybackContainer = styled.section`
   grid-area: playback;
+  footer {
+    justify-content: center;
+  }
 `;
 
 const PlaybackChess = styled.div`
   width: 256px;
   height: 256px;
-  margin: 10px auto;
+  margin: auto;
+  padding: 10px;
 `;
 
-const PlayerA = styled.section`
+const PlayerContainer = styled.section`
+  padding: 10px;
+`;
+
+const PlayerA = styled(PlayerContainer)`
   grid-area: playera;
 `;
 
-const PlayerB = styled.section`
+const PlayerB = styled(PlayerContainer)`
   grid-area: playerb;
 `;
 
