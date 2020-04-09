@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import ChessBoard from 'Components/chessboard';
 import Chat from 'Components/chat';
 import PlaybackModule from 'Components/playback-module';
@@ -8,58 +7,18 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 import { GET_MATCH, SEND_MOVE, SEND_CHAT_MESSAGE, MOVE_SUBSCRIPTION, CHAT_SUBSCRIPTION } from './queries';
 
-const Layout = styled.div`
-  display: grid;
-  padding: 10px;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  grid-template-areas:
-    'info game playback'
-    'info game chat'
-    'footer footer footer';
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 0fr 1fr 0fr;
-  justify-content: stretch;
-  align-items: stretch;
-  width: 100%;
-  height: 100%;
-`;
-
-const Game = styled.section`
-  grid-area: game;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const GameChessboard = styled.div`
-  width: 512px;
-  height: 512px;
-`;
-
-const ChatContainer = styled.section`
-  grid-area: chat;
-  overflow: hidden;
-  .chat-window {
-    height: calc(100% - 45px);
-  }
-`;
-
-const InfoContainer = styled.section`
-  grid-area: info;
-`;
-
-const PlaybackContainer = styled.section`
-  grid-area: playback;
-`;
-
-const PlaybackChess = styled.div`
-  width: 256px;
-  height: 256px;
-  margin: 10px auto;
-`;
-
-const CogWheel = styled.div.attrs({ className: 'hover-btn' })``;
+import {
+  Layout,
+  Game,
+  GameChessboard,
+  ChatContainer,
+  InfoContainer,
+  PlaybackContainer,
+  PlaybackChess,
+  PlayerA,
+  PlayerB,
+  CogWheel,
+} from './style';
 
 export default () => {
   const [fen, setFen] = useState(null);
