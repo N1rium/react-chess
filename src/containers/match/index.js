@@ -84,7 +84,7 @@ export default () => {
         <PlaybackChess>
           <ChessBoard fen={fens[fenIndex]} showIndexes={false} />
         </PlaybackChess>
-        <PlaybackModule items={fens} hasPlay={false} onChange={i => setFenIndex(i)} />
+        <PlaybackModule items={fens} onChange={i => setFenIndex(i)} />
       </PlaybackContainer>
       <ChatContainer>
         <header>
