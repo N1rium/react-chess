@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { wikipedia } from '../pieces';
 import Pawn from 'Components/styled/pawn';
@@ -51,6 +51,8 @@ const Letter = styled(Index).attrs({ className: 'index cell-letter' })`
 `;
 
 export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlight, showIndexes = true }) => {
+  const imgRef = useRef(null);
+
   return (
     <Cell
       id={square}
@@ -62,8 +64,7 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlig
       onDrop={onDrop}
       draggable={!!cell}
       onDragStart={e => {
-        const img = new Image();
-        img.src = wikipedia[`${cell.color}${cell.type}`];
+        const img = imgRef.current;
         e.dataTransfer.setDragImage(img, img.width / 2, img.width / 2);
         onDragStart(e);
       }}
@@ -71,7 +72,7 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlig
     >
       {cell && (
         <Pawn isBlack={cell.color == 'b'} active={square == moveStart}>
-          <img src={wikipedia[`${cell.color}${cell.type}`]} />
+          <img ref={imgRef} src={wikipedia[`${cell.color}${cell.type}`]} />
         </Pawn>
       )}
       {showIndexes && (
