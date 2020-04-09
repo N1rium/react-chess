@@ -4,7 +4,9 @@ import { wikipedia } from '../pieces';
 import Pawn from 'Components/styled/pawn';
 
 const Cell = styled.div.attrs(props => ({
-  className: `cell ${props.highlight ? 'highlighted' : ''} ${props.grabbable ? 'grabbable' : ''}`,
+  className: `cell ${props.highlight ? 'highlighted' : ''} ${props.grabbable ? 'grabbable' : ''} ${
+    props.active ? 'active' : ''
+  }`,
 }))`
   position: relative;
   width: 12.5%;
@@ -16,9 +18,9 @@ const Cell = styled.div.attrs(props => ({
   &.highlighted {
     &:after {
       content: '';
-      width: 12px;
-      height: 12px;
-      background: #fbf076;
+      width: 25%;
+      height: 25%;
+      background: #f5f693;
       border-radius: 50%;
       position: absolute;
       pointer-events: none;
@@ -29,6 +31,9 @@ const Cell = styled.div.attrs(props => ({
     &:active {
       cursor: grabbing;
     }
+  }
+  &.active {
+    background: #f5f693 !important;
   }
 `;
 
@@ -56,6 +61,7 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlig
   return (
     <Cell
       id={square}
+      active={cell && square == moveStart}
       highlight={highlight}
       grabbable={cell && cell.color}
       isBlack={cell && cell.color === 'b'}
