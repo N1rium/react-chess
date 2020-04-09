@@ -4,9 +4,10 @@ import Cell from './components/cell';
 import Chess from 'chess.js';
 
 export default ({
+  debug = false,
   fen,
   onMove = null,
-  orientationWhite = true,
+  flip = false,
   showPossibleMoves = true,
   showIndexes = true,
   colors = {},
@@ -22,15 +23,19 @@ export default ({
   const numbers = [8, 7, 6, 5, 4, 3, 2, 1];
 
   useEffect(() => {
-    if (fen) setChess(new Chess(fen));
+    if (fen) {
+      debug && console.log('[Chessboard]: got new FEN: ', fen);
+      setChess(new Chess(fen));
+    }
   }, [fen]);
 
   const move = move => {
+    debug && console.log('[Chessboard]: making move: ', move);
     chess.move(move) && onMove && onMove(move);
   };
 
   const getBoard = board => {
-    if (orientationWhite) return board;
+    if (!flip) return board;
     let clone = [...board.reverse()];
     let result = [];
     clone.forEach(row => result.push([...row.reverse()]));
@@ -55,8 +60,8 @@ export default ({
   if (!chess) return <Board size={size} />;
 
   const board = getBoard(chess.board());
-  const _letters = orientationWhite ? letters : [...letters].reverse();
-  const _numbers = orientationWhite ? numbers : [...numbers].reverse();
+  const _letters = !flip ? letters : [...letters].reverse();
+  const _numbers = !flip ? numbers : [...numbers].reverse();
   return (
     <Board size={size}>
       {board.map((row, i) => (
