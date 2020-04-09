@@ -26,8 +26,8 @@ export default () => {
   const [fenIndex, setFenIndex] = useState(0);
   const [chatMessages, setChatMessages] = useState([]);
 
-  const { data = {}, loading } = useQuery(GET_MATCH);
-  const { data: subData, error } = useSubscription(MOVE_SUBSCRIPTION, { variables: { id: '0' } });
+  const { data = {} } = useQuery(GET_MATCH);
+  const { data: subData } = useSubscription(MOVE_SUBSCRIPTION, { variables: { id: '0' } });
   const { data: chatData } = useSubscription(CHAT_SUBSCRIPTION, { variables: { room: '0' } });
   const [sendMove] = useMutation(SEND_MOVE);
   const [sendChatMessage] = useMutation(SEND_CHAT_MESSAGE);
