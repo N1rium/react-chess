@@ -4,6 +4,7 @@ import Flex from '../../components/styled/flex';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlay,
+  faPause,
   faStepBackward,
   faFastBackward,
   faStepForward,
@@ -35,6 +36,7 @@ export default ({
   autoUpdate = 'always',
 }) => {
   const [index, setIndex] = useState(startIndex);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const change = value => {
     const val = Math.min(Math.max(value, 0), items.length - 1);
@@ -62,8 +64,8 @@ export default ({
           </IconButton>
         )}
         {hasPlay && (
-          <PlayButton>
-            <FontAwesomeIcon icon={faPlay} />
+          <PlayButton onClick={() => setIsPlaying(!isPlaying)}>
+            <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
           </PlayButton>
         )}
         {hasForward && (
