@@ -51,6 +51,8 @@ const InfoContainer = styled.section`
 const PlaybackContainer = styled.section`
   grid-area: playback;
   footer {
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
 `;
