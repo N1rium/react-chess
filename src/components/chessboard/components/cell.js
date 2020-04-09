@@ -77,7 +77,7 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlig
       onDrop={onDrop}
     >
       {cell && (
-        <Pawn isBlack={cell.color == 'b'} active={square == moveStart}>
+        <Pawn isBlack={cell.color == 'b'}>
           <img ref={imgRef} src={wikipedia[`${cell.color}${cell.type}`]} />
         </Pawn>
       )}

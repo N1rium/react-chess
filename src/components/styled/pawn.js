@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default styled.div.attrs(props => ({ className: `pawn ${props.active && 'active'}` }))`
+export default styled.div.attrs({ className: 'pawn' })`
   color: ${props => (props.isBlack ? '#000' : '#fff')};
   transition: all 0.15s ease-in-out;
   will-change: transform, opacity;
@@ -22,10 +22,6 @@ export default styled.div.attrs(props => ({ className: `pawn ${props.active && '
     width: 100%;
   }
 
-  &.active {
-    transform: scale(1.25);
-    opacity: 0.8;
-  }
   @keyframes spawn {
     from {
       transform: scale(0);
