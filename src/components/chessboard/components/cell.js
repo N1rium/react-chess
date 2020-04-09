@@ -60,7 +60,7 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlig
       onClick={onClick}
       onDragOver={e => e.preventDefault()}
       onDrop={onDrop}
-      draggable="true"
+      draggable={!!cell}
       onDragStart={e => {
         const img = new Image();
         img.src = wikipedia[`${cell.color}${cell.type}`];
