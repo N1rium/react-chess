@@ -43,7 +43,7 @@ export default ({}) => {
     <Header>
       <Flex align="center">
         <FontAwesomeIcon icon={faChessKnight} />
-        <Title>Chess esports</Title>
+        <Title>Chessports</Title>
       </Flex>
       <Contacts>
         <Contact>Github</Contact>
