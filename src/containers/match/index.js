@@ -75,6 +75,8 @@ export default () => {
   return (
     <Layout>
       <InfoContainer></InfoContainer>
+      <PlayerA>Player A</PlayerA>
+      <PlayerB>Player B</PlayerB>
       <PlaybackContainer>
         <header>
           <div />
