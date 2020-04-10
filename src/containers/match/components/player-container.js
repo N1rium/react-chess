@@ -22,9 +22,6 @@ const Captured = styled.div`
   svg {
     margin: 0px 2px;
   }
-  img {
-    width: 32px;
-  }
 `;
 
 export default ({ name, captured = [], side = 'w' }) => {
