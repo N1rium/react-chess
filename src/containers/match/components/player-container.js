@@ -17,7 +17,7 @@ const Name = styled.div`
 const Captured = styled.div`
   display: flex;
   align-items: center;
-  color: ${props => (props.white ? '#000' : '#fff')};
+  color: ${props => (props.side === 'w' ? '#000' : '#fff')};
   font-size: 1.5em;
   svg {
     margin: 0px 2px;
@@ -30,7 +30,7 @@ export default ({ name, captured = [], side = 'w' }) => {
       <UserInfo>
         <Name>{name}</Name>
       </UserInfo>
-      <Captured white={side === 'w'}>
+      <Captured side={side}>
         {captured
           .filter(pawn => pawn.charAt(0) !== side)
           .map((pawn, i) => (
