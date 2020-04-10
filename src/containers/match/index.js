@@ -23,17 +23,18 @@ import {
   IconBtn,
 } from './style';
 
-export default () => {
+export default ({ matchId }) => {
   const [fen, setFen] = useState(null);
+  const [turn, setTurn] = useState(null);
   const [fens, setFens] = useState([]);
   const [flippedBoard, setFlippedBoard] = useState(false);
   const [fenIndex, setFenIndex] = useState(0);
   const [chatMessages, setChatMessages] = useState([]);
   const [captured, setCaptured] = useState([]);
 
-  const { data = {} } = useQuery(GET_MATCH);
-  const { data: subData } = useSubscription(MOVE_SUBSCRIPTION, { variables: { id: '0' } });
-  const { data: chatData } = useSubscription(CHAT_SUBSCRIPTION, { variables: { room: '0' } });
+  const { data = {} } = useQuery(GET_MATCH, { variables: { id: matchId } });
+  const { data: subData } = useSubscription(MOVE_SUBSCRIPTION, { variables: { id: matchId } });
+  const { data: chatData } = useSubscription(CHAT_SUBSCRIPTION, { variables: { room: matchId } });
   const [sendMove] = useMutation(SEND_MOVE);
   const [sendChatMessage] = useMutation(SEND_CHAT_MESSAGE);
 
@@ -53,8 +54,9 @@ export default () => {
   useEffect(() => {
     const { matchById } = data;
     if (matchById) {
-      const { fen, captured } = matchById;
+      const { fen, captured, turn } = matchById;
       setCaptured(captured);
+      setTurn(turn);
       setFen(fen);
       if (!fens.length) {
         const { moves = [] } = matchById;
@@ -66,10 +68,11 @@ export default () => {
   const onMove = async (data = {}) => {
     const { from, to, promotion = 'q' } = data;
     try {
-      const move = await sendMove({ variables: { input: { from, to, promotion, id: '0' } } });
+      const move = await sendMove({ variables: { input: { from, to, promotion, id: matchId } } });
       setFen(move.data.matchMove.fen);
       setFens([...fens, move.data.matchMove.fen]);
       setCaptured(move.data.matchMove.captured);
+      setTurn(move.data.matchMove.turn);
     } catch (e) {}
   };
 
@@ -80,16 +83,14 @@ export default () => {
     setMoveHistory([]);
   };
 
-  console.warn(captured);
-
   return (
     <Layout>
       <InfoContainer></InfoContainer>
       <PlayerA>
-        <PlayerContainer name="S. Ikonen" captured={captured} side="b" />
+        <PlayerContainer name="S. Ikonen" turn={turn} captured={captured} side="b" />
       </PlayerA>
       <PlayerB>
-        <PlayerContainer name="n1rium" captured={captured} side="w" />
+        <PlayerContainer name="n1rium" turn={turn} captured={captured} side="w" />
       </PlayerB>
       <PlaybackContainer>
         <header>
@@ -114,7 +115,7 @@ export default () => {
         </header>
         <Chat
           messages={chatMessages}
-          onSendMessage={message => sendChatMessage({ variables: { input: { room: '0', message } } })}
+          onSendMessage={message => sendChatMessage({ variables: { input: { room: matchId, message } } })}
         ></Chat>
       </ChatContainer>
       <Game>

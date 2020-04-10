@@ -16,12 +16,28 @@ const PrivateRoute = props => {
   return <Route {...props} />;
 };
 
+const MatchRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={routeProps => {
+        const {
+          match: {
+            params: { id },
+          },
+        } = routeProps;
+        return <MatchContainer matchId={id} />;
+      }}
+    />
+  );
+};
+
 const Router = () => (
   <Switch>
     <PrivateRoute exact path="/" component={HomeContainer} />
     <PrivateRoute exact path="/localplay" component={LocalPlayContainer} />
     <PrivateRoute exact path="/demo" component={ComponentsDemo} />
-    <PrivateRoute exact path="/match/:id" component={MatchContainer} />
+    <MatchRoute exact path="/match/:id" component={MatchContainer} />
     <Route component={() => <Redirect to="/" />} />
   </Switch>
 );

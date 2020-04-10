@@ -1,9 +1,10 @@
 import gql from 'graphql-tag';
 
 export const GET_MATCH = gql`
-  query getMatchById {
-    matchById(id: "0") {
+  query getMatchById($id: String!) {
+    matchById(id: $id) {
       fen
+      turn
       moves {
         from
         to

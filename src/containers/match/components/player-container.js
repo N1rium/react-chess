@@ -24,7 +24,7 @@ const Captured = styled.div`
   }
 `;
 
-export default ({ name, captured = [], side = 'w' }) => {
+export default ({ name, turn, captured = [], side = 'w' }) => {
   return (
     <PlayerContainer>
       <UserInfo>
