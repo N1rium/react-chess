@@ -8,6 +8,7 @@ import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 import { GET_MATCH, SEND_MOVE, SEND_CHAT_MESSAGE, MOVE_SUBSCRIPTION, CHAT_SUBSCRIPTION } from './queries';
 
 import PlayerContainer from './components/player-container';
+import { moveSound } from './sounds';
 
 import {
   Layout,
@@ -44,6 +45,7 @@ export default () => {
 
   useEffect(() => {
     if (subData) {
+      moveSound.play();
       setFen(subData.matchMoveMade.fen);
     }
   }, [subData]);
