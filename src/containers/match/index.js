@@ -86,10 +86,10 @@ export default ({ matchId }) => {
   return (
     <Layout>
       <InfoContainer></InfoContainer>
-      <PlayerA>
+      <PlayerA flip={flippedBoard}>
         <PlayerContainer name="S. Ikonen" turn={turn} captured={captured} side="b" />
       </PlayerA>
-      <PlayerB>
+      <PlayerB flip={flippedBoard}>
         <PlayerContainer name="n1rium" turn={turn} captured={captured} side="w" />
       </PlayerB>
       <PlaybackContainer>

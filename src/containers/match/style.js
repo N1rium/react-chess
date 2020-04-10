@@ -6,11 +6,11 @@ const Layout = styled.div`
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   grid-template-areas:
-    'info playera playback'
+    'info playerTop playback'
     'info game playback'
     'info game chat'
     'info game chat'
-    'info playerb chat';
+    'info playerBottom chat';
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: auto auto 1fr 1fr 0fr;
   justify-content: stretch;
@@ -79,11 +79,11 @@ const PlayerContainer = styled.section`
 `;
 
 const PlayerA = styled(PlayerContainer)`
-  grid-area: playera;
+  grid-area: ${props => (props.flip ? 'playerBottom' : 'playerTop')};
 `;
 
 const PlayerB = styled(PlayerContainer)`
-  grid-area: playerb;
+  grid-area: ${props => (props.flip ? 'playerTop' : 'playerBottom')};
 `;
 
 const IconBtn = styled.div.attrs({ className: 'hover-btn' })``;
