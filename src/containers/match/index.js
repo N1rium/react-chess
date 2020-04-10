@@ -28,6 +28,7 @@ export default () => {
   const [flippedBoard, setFlippedBoard] = useState(false);
   const [fenIndex, setFenIndex] = useState(0);
   const [chatMessages, setChatMessages] = useState([]);
+  const [captured, setCaptured] = useState([]);
 
   const { data = {} } = useQuery(GET_MATCH);
   const { data: subData } = useSubscription(MOVE_SUBSCRIPTION, { variables: { id: '0' } });
@@ -50,7 +51,8 @@ export default () => {
   useEffect(() => {
     const { matchById } = data;
     if (matchById) {
-      const { fen } = matchById;
+      const { fen, captured } = matchById;
+      setCaptured(captured);
       setFen(fen);
       if (!fens.length) {
         const { moves = [] } = matchById;
@@ -65,6 +67,7 @@ export default () => {
       const move = await sendMove({ variables: { input: { from, to, promotion, id: '0' } } });
       setFen(move.data.matchMove.fen);
       setFens([...fens, move.data.matchMove.fen]);
+      setCaptured(move.data.matchMove.captured);
     } catch (e) {}
   };
 
@@ -75,14 +78,16 @@ export default () => {
     setMoveHistory([]);
   };
 
+  console.warn(captured);
+
   return (
     <Layout>
       <InfoContainer></InfoContainer>
       <PlayerA>
-        <PlayerContainer name="S. Ikonen" />
+        <PlayerContainer name="S. Ikonen" captured={captured} side="b" />
       </PlayerA>
       <PlayerB>
-        <PlayerContainer name="n1rium" />
+        <PlayerContainer name="n1rium" captured={captured} side="w" />
       </PlayerB>
       <PlaybackContainer>
         <header>

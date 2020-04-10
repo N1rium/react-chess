@@ -12,6 +12,7 @@ export const GET_MATCH = gql`
       participants {
         side
       }
+      captured
     }
   }
 `;
@@ -29,6 +30,7 @@ export const SEND_MOVE = gql`
       turn
       gameOver
       draw
+      captured
     }
   }
 `;
