@@ -13,6 +13,7 @@ export default ({
   colors = {},
   size = '100%',
   side = null,
+  promotion = 'q',
 }) => {
   const [moveStart, setMoveStart] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
@@ -45,7 +46,7 @@ export default ({
   const onCellSelect = square => {
     if (moveStart) {
       if (possibleMoves.includes(square)) {
-        move({ from: moveStart, to: square, promotion: 'q' });
+        move({ from: moveStart, to: square, promotion });
         setMoveStart(null);
         setPossibleMoves([]);
         return;
