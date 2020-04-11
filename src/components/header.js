@@ -11,7 +11,6 @@ const Header = styled.header`
   width: 100%;
   height: 48px;
   background: #232323;
-  color: #fff;
   font-weight: bold;
   padding: 0 20px;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
@@ -34,9 +33,7 @@ const Contact = styled.a.attrs({
   href: 'https://github.com/N1rium/react-chess',
   target: '_blank',
   className: 'hover-btn',
-})`
-  color: #fff;
-`;
+})``;
 
 export default ({}) => {
   return (

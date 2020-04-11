@@ -4,7 +4,6 @@ import Flex from '../../../components/styled/flex';
 
 const MessageArea = styled(Flex).attrs({ className: 'chat-message-area' })`
   flex: 1 1 auto;
-  color: #fff;
   font-size: 0.8em;
   overflow-y: auto;
 `;

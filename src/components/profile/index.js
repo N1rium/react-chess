@@ -6,13 +6,6 @@ const Username = styled.div`
   font-weight: bold;
   font-size: 1.5em;
 `;
-const ProfilePicture = styled.img.attrs({
-  src: 'https://i.pinimg.com/originals/89/17/b2/8917b2866bf5d050251d3d791f6b3307.png',
-})`
-  width: 64px;
-  height: 64px;
-  object-fit: cover;
-`;
 
 const Info = styled.section`
   display: flex;
@@ -32,7 +25,6 @@ export default ({ user }) => {
   return (
     <Profile>
       <Info>
-        <ProfilePicture />
         <div>
           <Username>N1rium</Username>
           <div>1800</div>

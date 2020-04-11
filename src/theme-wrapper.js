@@ -18,12 +18,16 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background: #121212;
-    color: #E0E0E0;
+    color: ${props => props.theme.primaryTextColor};
     overflow: hidden;
   }
 
   body, input {
     font-family: circular, sans-serif;
+  }
+
+  a {
+    color: ${props => props.theme.primaryTextColor};
   }
 
   #app-container {
@@ -66,7 +70,6 @@ const GlobalStyle = createGlobalStyle`
   section {
     position: relative;
     background: #232323;
-    border-radius: 3px;
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
     border: 1px solid rgba(0,0,0,0.5);
     border-radius: 3px;
@@ -89,8 +92,11 @@ const GlobalStyle = createGlobalStyle`
 
 const ThemeWrapper = ({ children }) => {
   const theme = {};
+  const darkTheme = {
+    primaryTextColor: '#E0E0E0',
+  };
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={{ ...theme, ...darkTheme }}>
       <GlobalStyle />
       {children}
     </ThemeProvider>

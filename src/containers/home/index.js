@@ -5,15 +5,16 @@ import Chat from '../../components/chat';
 
 const Layout = styled.div`
   display: grid;
+  padding: 10px;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
-  margin: 10px;
   grid-template-areas:
-    'profile play .'
-    'chat play .'
-    'news leaderboard .';
+    'profile play'
+    'chat play';
   grid-template-columns: auto;
   grid-template-rows: auto;
+  justify-content: stretch;
+  align-items: stretch;
   width: 100%;
   height: 100%;
 `;
