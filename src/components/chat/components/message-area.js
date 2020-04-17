@@ -17,6 +17,7 @@ const Message = styled(Flex)`
 
 const Name = styled.div`
   font-weight: bold;
+  margin-right: 0.25em;
 `;
 
 const Content = styled.div``;
@@ -24,7 +25,7 @@ const Content = styled.div``;
 const MessageComp = ({ name, content }) => {
   return (
     <Message>
-      <Name>{name}: </Name>
+      <Name>{name}:</Name>
       <Content> {content}</Content>
     </Message>
   );
@@ -35,8 +36,8 @@ export default ({ messages }) => {
     <MessageArea direction="column-reverse">
       <Messages>
         {messages.map((message, i) => {
-          const { name, content } = message;
-          return <MessageComp key={i} name={name} content={content} />;
+          const { sender, content } = message;
+          return <MessageComp key={i} name={sender} content={content} />;
         })}
       </Messages>
     </MessageArea>
