@@ -67,13 +67,15 @@ export default ({ matchId }) => {
   const { fen, pgn, turn, captured, participants, gameOver, draw, threefold, checkmate, stalemate } = match || {};
   const fens = fensFromPGN({ pgn });
 
-  console.log(gameOver, draw, threefold, checkmate, stalemate);
-
   const getGameHeader = () => {
+    const turns = {
+      w: 'White',
+      b: 'Black',
+    };
     if (gameOver) {
       return 'Match has ended!';
     }
-    return 'Match active';
+    return `${turns[turn]}s turn!`;
   };
 
   return (
