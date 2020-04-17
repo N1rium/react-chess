@@ -67,6 +67,13 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  input {
+    border: 0;
+    outline: none;
+    padding: 10px;
+    border-radius: 3px;
+  }
+
   section {
     position: relative;
     background: #232323;

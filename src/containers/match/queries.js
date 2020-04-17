@@ -5,13 +5,11 @@ export const GET_MATCH = gql`
     matchById(id: $id) {
       fen
       turn
+      pgn
       moves {
         from
         to
         fen
-      }
-      participants {
-        side
       }
       captured
     }
@@ -22,10 +20,10 @@ export const SEND_MOVE = gql`
   mutation matchMove($input: MatchMoveInput!) {
     matchMove(input: $input) {
       fen
+      pgn
       moves {
         from
         to
-        date
         fen
       }
       turn

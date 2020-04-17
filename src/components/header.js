@@ -30,8 +30,7 @@ const Title = styled.h1`
 const Contacts = styled.div``;
 
 const Contact = styled.a.attrs({
-  href: 'https://github.com/N1rium/react-chess',
-  target: '_blank',
+  href: '/login',
   className: 'hover-btn',
 })``;
 
@@ -43,7 +42,7 @@ export default ({}) => {
         <Title>Chessports</Title>
       </Flex>
       <Contacts>
-        <Contact>Github</Contact>
+        <Contact>Sign in</Contact>
       </Contacts>
     </Header>
   );

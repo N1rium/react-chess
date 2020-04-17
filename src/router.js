@@ -5,6 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import HomeContainer from 'containers/home';
 import LocalPlayContainer from 'containers/localplay';
 import MatchContainer from 'containers/match';
+import LoginContainer from 'containers/login';
 
 // const getUser = () => store.getState().auth.user;
 
@@ -36,6 +37,7 @@ const Router = () => (
     <PrivateRoute exact path="/" component={HomeContainer} />
     <PrivateRoute exact path="/localplay" component={LocalPlayContainer} />
     <MatchRoute exact path="/match/:id" component={MatchContainer} />
+    <Route exact path="/login" component={LoginContainer} />
     <Route component={() => <Redirect to="/" />} />
   </Switch>
 );

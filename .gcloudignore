@@ -1,0 +1,8 @@
+*~
+.*
+node_modules/
+coverage/
+/src
+package.json
+package-lock.json
+Dockerfile

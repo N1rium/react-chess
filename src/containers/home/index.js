@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import Profile from '../../components/profile';
 import Chat from '../../components/chat';
 
+import { useLazyQuery } from '@apollo/react-hooks';
+import { GET_MATCHES } from './queries';
+
 const Layout = styled.div`
   display: grid;
   padding: 10px;
@@ -32,19 +35,26 @@ const ChatContainer = styled.section`
 `;
 
 export default () => {
+  const [getMatches, { data, loading, error }] = useLazyQuery(GET_MATCHES);
+
   useEffect(() => {
     const token = localStorage.getItem('token', null);
     if (!token) {
       localStorage.setItem('token', '0');
     }
+    getMatches();
   }, []);
 
   return (
     <Layout>
       <ProfileContainer>
+        <header>My profile</header>
         <Profile />
       </ProfileContainer>
       <Play>
+        {data &&
+          data.availableMatches.length > 0 &&
+          data.availableMatches.map(match => <div key={match.id}>{match.id}</div>)}
         <button onClick={() => (window.location.href = '/match/0')}>Go to match</button>
       </Play>
       <ChatContainer>

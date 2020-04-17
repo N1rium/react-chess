@@ -14,10 +14,7 @@ const InputArea = styled(Flex).attrs({ as: 'form' })`
 `;
 
 const Input = styled.input.attrs({ type: 'text', placeholder: 'Send a message' })`
-  border: 0;
-  outline: none;
   flex: 1 1 auto;
-  padding: 10px;
 `;
 
 export default ({ messages = [], onSendMessage = null }) => {

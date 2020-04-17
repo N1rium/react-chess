@@ -7,18 +7,8 @@ const Username = styled.div`
   font-size: 1.5em;
 `;
 
-const Info = styled.section`
+const Info = styled.div`
   display: flex;
-`;
-
-const Stats = styled.section`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-`;
-
-const Stat = styled.div`
-  text-align: center;
 `;
 
 export default ({ user }) => {
@@ -27,19 +17,8 @@ export default ({ user }) => {
       <Info>
         <div>
           <Username>N1rium</Username>
-          <div>1800</div>
         </div>
       </Info>
-      <Stats>
-        <Stat>
-          <div>Matches played</div>
-          <div>0</div>
-        </Stat>
-        <Stat>
-          <div>Wins</div>
-          <div>0</div>
-        </Stat>
-      </Stats>
     </Profile>
   );
 };

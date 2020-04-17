@@ -32,7 +32,7 @@ export default ({
 
   const move = move => {
     debug && console.log('[Chessboard]: making move: ', move);
-    chess.move(move) && onMove && onMove(move);
+    chess.move(move) && onMove && onMove({ ...move, fen: chess.fen() });
   };
 
   const getBoard = board => {

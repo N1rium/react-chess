@@ -33,7 +33,7 @@ export default ({
   hasFastForward = true,
   hasBackward = true,
   hasFastBackward = true,
-  autoUpdate = 'always',
+  autoUpdate = 'never',
 }) => {
   const [index, setIndex] = useState(startIndex);
   const [isPlaying, setIsPlaying] = useState(false);

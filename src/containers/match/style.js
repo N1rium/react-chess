@@ -6,11 +6,11 @@ const Layout = styled.div`
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   grid-template-areas:
-    'info playerTop playback'
-    'info game playback'
-    'info game chat'
-    'info game chat'
-    'info playerBottom chat';
+    'chat playerTop playback'
+    'chat game playback'
+    'chat game pgn'
+    'chat game pgn'
+    'chat playerBottom pgn';
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: auto auto 1fr 1fr 0fr;
   justify-content: stretch;
@@ -53,10 +53,6 @@ const ChatContainer = styled.section`
   }
 `;
 
-const InfoContainer = styled.section`
-  grid-area: info;
-`;
-
 const PlaybackContainer = styled.section`
   grid-area: playback;
   footer,
@@ -88,15 +84,4 @@ const PlayerB = styled(PlayerContainer)`
 
 const IconBtn = styled.div.attrs({ className: 'hover-btn' })``;
 
-export {
-  Layout,
-  Game,
-  GameChessboard,
-  ChatContainer,
-  InfoContainer,
-  PlaybackContainer,
-  PlaybackChess,
-  PlayerA,
-  PlayerB,
-  IconBtn,
-};
+export { Layout, Game, GameChessboard, ChatContainer, PlaybackContainer, PlaybackChess, PlayerA, PlayerB, IconBtn };

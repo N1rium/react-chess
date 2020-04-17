@@ -9,12 +9,10 @@ const htmlPlugin = new HtmlWebPackPlugin({
 
 const copyPlugin = new CopyWebpackPlugin([{ from: 'src/assets', to: 'src/assets' }]);
 
-module.exports = args => {
-  const { env = 'dev' } = args;
+module.exports = (env, args) => {
   let plugins = [htmlPlugin, copyPlugin];
-
   return {
-    devtool: env === 'prod' ? false : 'source-map',
+    devtool: args.mode === 'production' ? false : 'source-map',
     module: {
       rules: [
         {

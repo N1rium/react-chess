@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --env local",
+    "start": "webpack-dev-server --mode development",
+    "build": "rm -rf dist && webpack --mode production",
+    "deploy-dev": "webpack --mode development && gcloud app deploy --project=chessports-dev --version=${npm_package_version//./-} --quiet",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -17,6 +19,7 @@
     "apollo-boost": "^0.4.7",
     "apollo-link-ws": "^1.0.19",
     "babel-polyfill": "^6.26.0",
+    "chess-helper": "^1.0.7",
     "chess.js": "^0.10.3",
     "graphql": "^14.6.0",
     "howler": "^2.1.3",
