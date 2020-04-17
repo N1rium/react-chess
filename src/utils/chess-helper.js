@@ -1,3 +1,16 @@
+import Chess from 'chess.js';
+
+export const fensFromPGN = ({ pgn }) => {
+  const moves = movesFromPGN({ pgn });
+  const chess = new Chess();
+  let fens = [chess.fen()];
+  moves.forEach(move => {
+    chess.move(move);
+    fens.push(chess.fen());
+  });
+  return fens;
+};
+
 export const movesFromPGN = ({ pgn = '', merged = true }) => {
   let ms = pgn;
   /* delete comments */

@@ -11,6 +11,11 @@ export const GET_MATCH = gql`
         to
         fen
       }
+      participants {
+        user {
+          username
+        }
+      }
       captured
     }
   }
@@ -25,6 +30,11 @@ export const SEND_MOVE = gql`
         from
         to
         fen
+      }
+      participants {
+        user {
+          username
+        }
       }
       turn
       gameOver

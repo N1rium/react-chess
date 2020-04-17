@@ -11,6 +11,8 @@ import PlayerContainer from './components/player-container';
 import PGNContainer from './components/pgn-container';
 import { moveSound } from './sounds';
 
+import { fensFromPGN } from 'utils/chess-helper';
+
 import {
   Layout,
   Game,
@@ -62,8 +64,9 @@ export default ({ matchId }) => {
     } catch (e) {}
   };
 
-  const { fen, pgn, turn, captured, moves = [] } = match || {};
-  const fens = moves.map(m => m.fen);
+  const { fen, pgn, turn, captured, participants } = match || {};
+  console.log(participants);
+  const fens = fensFromPGN({ pgn });
 
   return (
     <Layout>
