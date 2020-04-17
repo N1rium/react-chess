@@ -52,6 +52,10 @@ export default ({
         return;
       }
     }
+
+    const selectedSquare = chess.get(square);
+    if (side && selectedSquare && selectedSquare.color != side) return;
+
     setMoveStart(square);
     let re = /[a-h][1-9]/;
     const moves = chess.moves({ square, verbose: true }).map(move => move && move.to && move.to.match(re)[0]);
