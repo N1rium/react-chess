@@ -6,6 +6,11 @@ export const GET_MATCH = gql`
       fen
       turn
       pgn
+      gameOver
+      draw
+      threefold
+      checkmate
+      stalemate
       moves {
         from
         to
@@ -25,7 +30,13 @@ export const SEND_MOVE = gql`
   mutation matchMove($input: MatchMoveInput!) {
     matchMove(input: $input) {
       fen
+      turn
       pgn
+      gameOver
+      draw
+      threefold
+      checkmate
+      stalemate
       moves {
         from
         to
@@ -36,9 +47,6 @@ export const SEND_MOVE = gql`
           username
         }
       }
-      turn
-      gameOver
-      draw
       captured
     }
   }

@@ -44,7 +44,7 @@ export default ({ matchId }) => {
 
   useEffect(() => {
     if (subData) {
-      // setMatch(subData.matchMoveMade);
+      setMatch(subData.matchMoveMade);
     }
   }, [subData]);
 
@@ -64,9 +64,17 @@ export default ({ matchId }) => {
     } catch (e) {}
   };
 
-  const { fen, pgn, turn, captured, participants } = match || {};
-  console.log(participants);
+  const { fen, pgn, turn, captured, participants, gameOver, draw, threefold, checkmate, stalemate } = match || {};
   const fens = fensFromPGN({ pgn });
+
+  console.log(gameOver, draw, threefold, checkmate, stalemate);
+
+  const getGameHeader = () => {
+    if (gameOver) {
+      return 'Match has ended!';
+    }
+    return 'Match active';
+  };
 
   return (
     <Layout>
@@ -104,6 +112,7 @@ export default ({ matchId }) => {
       </ChatContainer>
       <Game>
         <header>
+          {getGameHeader()}
           <IconBtn onClick={() => setFlippedBoard(!flippedBoard)}>
             <FontAwesomeIcon icon={faSyncAlt} />
           </IconBtn>

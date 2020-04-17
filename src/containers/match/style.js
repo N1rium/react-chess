@@ -24,7 +24,7 @@ const Game = styled.section`
   header {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
   & > div {
     width: 100%;
