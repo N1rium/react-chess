@@ -7,12 +7,12 @@ import LocalPlayContainer from 'containers/localplay';
 import MatchContainer from 'containers/match';
 import LoginContainer from 'containers/login';
 
-// const getUser = () => store.getState().auth.user;
+const getUser = () => localStorage.getItem('token');
 
 const PrivateRoute = props => {
-  // if (!getUser()) {
-  //   return <Redirect to={`/authlanding?path=${window.location.pathname}`} />;
-  // }
+  if (!getUser()) {
+    return <Redirect to={`/login`} />;
+  }
   return <Route {...props} />;
 };
 

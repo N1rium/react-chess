@@ -20,14 +20,14 @@ import store from './store';
 const cache = new InMemoryCache();
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:3000/graphql`,
+  uri: `ws://10.8.0.34:3000/graphql`,
   options: {
     reconnect: true,
   },
 });
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'http://10.8.0.34:3000/graphql',
   headers: {
     token: localStorage.getItem('token'),
   },

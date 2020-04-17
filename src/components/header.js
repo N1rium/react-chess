@@ -27,13 +27,6 @@ const Title = styled.h1`
   font-weight: 900;
 `;
 
-const Contacts = styled.div``;
-
-const Contact = styled.a.attrs({
-  href: '/login',
-  className: 'hover-btn',
-})``;
-
 export default ({}) => {
   return (
     <Header>
@@ -41,9 +34,6 @@ export default ({}) => {
         <FontAwesomeIcon icon={faChessKnight} />
         <Title>Chessports</Title>
       </Flex>
-      <Contacts>
-        <Contact>Sign in</Contact>
-      </Contacts>
     </Header>
   );
 };
