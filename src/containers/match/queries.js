@@ -17,11 +17,17 @@ export const GET_MATCH = gql`
         fen
       }
       participants {
+        side
         user {
+          id
           username
         }
       }
       captured
+    }
+    me {
+      id
+      username
     }
   }
 `;
@@ -43,8 +49,10 @@ export const SEND_MOVE = gql`
         fen
       }
       participants {
+        side
         user {
           username
+          id
         }
       }
       captured

@@ -27,6 +27,7 @@ import {
 
 export default ({ matchId }) => {
   const [match, setMatch] = useState(null);
+  const [me, setMe] = useState(null);
   const [flippedBoard, setFlippedBoard] = useState(false);
   const [fenIndex, setFenIndex] = useState(0);
   const [chatMessages, setChatMessages] = useState([]);
@@ -52,6 +53,7 @@ export default ({ matchId }) => {
     const { matchById } = data;
     if (data && data.matchById) {
       setMatch(matchById);
+      setMe(data.me);
     }
   }, [data]);
 
@@ -64,7 +66,9 @@ export default ({ matchId }) => {
     } catch (e) {}
   };
 
-  const { fen, pgn, turn, captured, participants, gameOver, draw, threefold, checkmate, stalemate } = match || {};
+  if (!match) return null;
+
+  const { fen, pgn, turn, captured, participants = [], gameOver, draw, threefold, checkmate, stalemate } = match;
   const fens = fensFromPGN({ pgn });
 
   const getGameHeader = () => {
@@ -78,13 +82,19 @@ export default ({ matchId }) => {
     return `${turns[turn]}s turn!`;
   };
 
+  const whitePlayer = participants.find(p => p.side == 'w') || null;
+  const blackPlayer = participants.find(p => p.side == 'b') || null;
+  const self = participants.find(p => p.user.id == me.id);
+  console.log(participants);
+  console.log(me);
+
   return (
     <Layout>
       <PlayerA flip={flippedBoard}>
-        <PlayerContainer name="S. Ikonen" turn={turn} captured={captured} side="b" />
+        <PlayerContainer player={blackPlayer} turn={turn} captured={captured} />
       </PlayerA>
       <PlayerB flip={flippedBoard}>
-        <PlayerContainer name="n1rium" turn={turn} captured={captured} side="w" />
+        <PlayerContainer player={whitePlayer} turn={turn} captured={captured} />
       </PlayerB>
       <PlaybackContainer>
         <header>
@@ -121,7 +131,7 @@ export default ({ matchId }) => {
         </header>
         <div>
           <GameChessboard>
-            <ChessBoard fen={fen} flip={flippedBoard} onMove={onMove} />
+            <ChessBoard fen={fen} side={(self && self.side) || null} flip={flippedBoard} onMove={onMove} />
           </GameChessboard>
         </div>
       </Game>

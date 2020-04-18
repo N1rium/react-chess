@@ -24,11 +24,13 @@ const Captured = styled.div`
   }
 `;
 
-export default ({ name, turn, captured = [], side = 'w' }) => {
+export default ({ player, turn, captured = [] }) => {
+  const { user: { username = 'Empty slot', side } = {} } = player || {};
+
   return (
     <PlayerContainer>
       <UserInfo>
-        <Name>{name}</Name>
+        <Name>{username}</Name>
       </UserInfo>
       <Captured side={side}>
         {captured

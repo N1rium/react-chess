@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import Profile from '../../components/profile';
 import Chat from '../../components/chat';
+import Profile from './components/profile';
+import Play from './components/play';
+import Tabs from '../../components/tabs';
 
 import { useLazyQuery } from '@apollo/react-hooks';
-import { GET_MATCHES } from './queries';
 
 const Layout = styled.div`
   display: grid;
@@ -22,41 +23,22 @@ const Layout = styled.div`
   height: 100%;
 `;
 
-const ProfileContainer = styled.section`
-  grid-area: profile;
-`;
-
-const Play = styled.section`
-  grid-area: play;
-`;
-
 const ChatContainer = styled.section`
   grid-area: chat;
 `;
 
 export default () => {
-  const [getMatches, { data, loading, error }] = useLazyQuery(GET_MATCHES);
-
   useEffect(() => {
     const token = localStorage.getItem('token', null);
     if (!token) {
       localStorage.setItem('token', '0');
     }
-    getMatches();
   }, []);
 
   return (
     <Layout>
-      <ProfileContainer>
-        <header>My profile</header>
-        <Profile />
-      </ProfileContainer>
-      <Play>
-        {data &&
-          data.availableMatches.length > 0 &&
-          data.availableMatches.map(match => <div key={match.id}>{match.id}</div>)}
-        <button onClick={() => (window.location.href = '/match/0')}>Go to match</button>
-      </Play>
+      <Profile />
+      <Play />
       <ChatContainer>
         <Chat />
       </ChatContainer>
