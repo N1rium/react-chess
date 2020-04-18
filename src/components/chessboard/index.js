@@ -12,7 +12,7 @@ export default ({
   showIndexes = true,
   colors = {},
   size = '100%',
-  side = null,
+  side = 'wb',
   promotion = 'q',
 }) => {
   const [moveStart, setMoveStart] = useState(null);
@@ -54,7 +54,7 @@ export default ({
     }
 
     const selectedSquare = chess.get(square);
-    if (side && selectedSquare && selectedSquare.color != side) return;
+    if (!side || (selectedSquare && !side.includes(selectedSquare.color))) return;
 
     setMoveStart(square);
     let re = /[a-h][1-9]/;
