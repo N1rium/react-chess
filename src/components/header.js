@@ -1,4 +1,5 @@
 import React from 'react';
+import history from '../store/history';
 import styled from 'styled-components';
 import Flex from '../components/styled/flex';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,6 +26,11 @@ const Title = styled.h1`
   font-size: 1.25em;
   margin-left: 0.5em;
   font-weight: 900;
+  text-decoration: underline;
+  span {
+    font-weight: normal;
+    font-size: 0.6em;
+  }
 `;
 
 export default ({}) => {
@@ -32,7 +38,10 @@ export default ({}) => {
     <Header>
       <Flex align="center">
         <FontAwesomeIcon icon={faChessKnight} />
-        <Title>Chessports</Title>
+        <Title onClick={() => history.push('/')}>
+          Chessports
+          {/* <span>.com</span> */}
+        </Title>
       </Flex>
     </Header>
   );
