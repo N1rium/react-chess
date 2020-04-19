@@ -46,6 +46,10 @@ const Add = styled.div.attrs({ className: 'hover-btn' })`
   font-size: 1.2em;
 `;
 
+const Prefs = styled.div`
+  padding: 10px;
+`;
+
 export default ({}) => {
   const [getMatches, { data, loading, error }] = useLazyQuery(GET_MATCHES);
   const [createMatch] = useMutation(CREATE_MATCH);

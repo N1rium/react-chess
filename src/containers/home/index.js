@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import Chat from '../../components/chat';
 import Profile from './components/profile';
 import Play from './components/play';
-import Tabs from '../../components/tabs';
-
-import { useLazyQuery } from '@apollo/react-hooks';
 
 const Layout = styled.div`
   display: grid;
