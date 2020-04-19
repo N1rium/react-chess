@@ -1,5 +1,10 @@
 import Chess from 'chess.js';
 
+const NUMERIC_ANNOTATION = /\$\d+/g;
+const MOVE_NUMBER = /\d+\.(\.\.)?/g;
+const COMMENT = /(\{[^}]+\})+?/g;
+const HEADERS = /\[.*?\]/g;
+
 export const fensFromPGN = ({ pgn }) => {
   const moves = movesFromPGN({ pgn });
   const chess = new Chess();
@@ -11,10 +16,38 @@ export const fensFromPGN = ({ pgn }) => {
   return fens;
 };
 
+export const valuesFromPGN = pgn => {
+  const turns = movesFromPGN({ pgn });
+  const chess = new Chess();
+  let fens = [chess.fen()];
+  let captured = [];
+  let sans = [];
+  let moves = [];
+  turns.forEach(move => {
+    const newMove = chess.move(move);
+    if (newMove) {
+      fens.push(chess.fen());
+      moves.push(newMove);
+      const { captured: moveCapture, color, from, to, san } = newMove;
+      if (moveCapture) captured.push(`${color === 'w' ? 'b' : 'w'}${moveCapture}`);
+      sans.push(san);
+    }
+  });
+  return {
+    fens,
+    captured,
+    sans,
+    moves,
+  };
+};
+
 export const movesFromPGN = ({ pgn = '', merged = true }) => {
-  let ms = pgn;
+  console.log(pgn);
+  /* delete all headers */
+  let ms = pgn.replace(HEADERS, '');
+
   /* delete comments */
-  ms = ms.replace(/(\{[^}]+\})+?/g, '');
+  ms = ms.replace(COMMENT, '');
 
   /* delete recursive annotation variations */
   var rav_regex = /(\([^\(\)]+\))+?/g;
@@ -23,13 +56,13 @@ export const movesFromPGN = ({ pgn = '', merged = true }) => {
   }
 
   /* delete move numbers */
-  ms = ms.replace(/\d+\.(\.\.)?/g, '');
+  ms = ms.replace(MOVE_NUMBER, '');
 
   /* delete ... indicating black to move */
   ms = ms.replace(/\.\.\./g, '');
 
   /* delete numeric annotation glyphs */
-  ms = ms.replace(/\$\d+/g, '');
+  ms = ms.replace(NUMERIC_ANNOTATION, '');
 
   /* trim and get array of moves */
   let moves = ms.trim().split(new RegExp(/\s+/));
@@ -40,6 +73,11 @@ export const movesFromPGN = ({ pgn = '', merged = true }) => {
   }
 
   return moves;
+};
+
+export const headersFromPGN = ({ pgn, array = true }) => {
+  const headers = pgn.match(HEADERS) || [];
+  if (array) return headers;
 };
 
 export const turnsFromPGN = ({ pgn }) => {
