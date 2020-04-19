@@ -6,7 +6,7 @@ import Pawn from 'Components/styled/pawn';
 const Cell = styled.div.attrs(props => ({
   className: `cell ${props.highlight ? 'highlighted' : ''} ${props.grabbable ? 'grabbable' : ''} ${
     props.active ? 'active' : ''
-  }`,
+  } ${props.identity ? props.identity : ''}`,
 }))`
   position: relative;
   width: 12.5%;
@@ -61,6 +61,7 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlig
   return (
     <Cell
       id={square}
+      identity={cell && `${cell.color}${cell.type}`}
       active={cell && square == moveStart}
       highlight={highlight}
       grabbable={cell && cell.color}

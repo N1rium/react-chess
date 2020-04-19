@@ -1,9 +1,19 @@
 import styled from 'styled-components';
 
-const Board = styled.div`
+const Board = styled.div.attrs(props => ({ className: `${props.inCheck ? `${props.turn}-in-check` : ''}` }))`
   position: relative;
   width: ${props => props.size};
   height: ${props => props.size};
+  &.w-in-check {
+    .cell.wk {
+      background: #d23939 !important;
+    }
+  }
+  &.b-in-check {
+    .cell.bk {
+      background: #d23939 !important;
+    }
+  }
 `;
 
 const Row = styled.div.attrs({ className: 'row' })`
