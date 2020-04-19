@@ -11,11 +11,6 @@ export const GET_MATCH = gql`
       threefold
       checkmate
       stalemate
-      moves {
-        from
-        to
-        fen
-      }
       participants {
         side
         user {
@@ -23,7 +18,6 @@ export const GET_MATCH = gql`
           username
         }
       }
-      captured
     }
     me {
       id
@@ -43,11 +37,6 @@ export const SEND_MOVE = gql`
       threefold
       checkmate
       stalemate
-      moves {
-        from
-        to
-        fen
-      }
       participants {
         side
         user {
@@ -55,7 +44,6 @@ export const SEND_MOVE = gql`
           id
         }
       }
-      captured
     }
   }
 `;
@@ -73,6 +61,20 @@ export const MOVE_SUBSCRIPTION = gql`
   subscription matchMoveMade($id: String!) {
     matchMoveMade(id: $id) {
       fen
+      turn
+      pgn
+      gameOver
+      draw
+      threefold
+      checkmate
+      stalemate
+      participants {
+        side
+        user {
+          username
+          id
+        }
+      }
     }
   }
 `;

@@ -11,7 +11,7 @@ import PlayerContainer from './components/player-container';
 import PGNContainer from './components/pgn-container';
 import { moveSound } from './sounds';
 
-import { fensFromPGN } from 'utils/chess-helper';
+import { valuesFromPGN } from 'utils/chess-helper';
 
 import {
   Layout,
@@ -62,14 +62,14 @@ export default ({ matchId }) => {
     moveSound.play();
     try {
       const move = await sendMove({ variables: { input: { from, to, promotion, id: matchId } } });
-      setMatch(move.data.matchMove);
+      // setMatch(move.data.matchMove);
     } catch (e) {}
   };
 
   if (!match) return null;
 
-  const { fen, pgn, turn, captured, participants = [], gameOver, draw, threefold, checkmate, stalemate } = match;
-  const fens = fensFromPGN({ pgn });
+  const { fen, pgn, turn, participants = [], gameOver } = match;
+  const { fens, captured } = valuesFromPGN(pgn);
 
   const getGameHeader = () => {
     const turns = {
@@ -84,9 +84,6 @@ export default ({ matchId }) => {
 
   const whitePlayer = participants.find(p => p.side == 'w') || null;
   const blackPlayer = participants.find(p => p.side == 'b') || null;
-  const self = participants.find(p => p.user.id == me.id);
-  console.log(participants);
-  console.log(me);
 
   return (
     <Layout>
@@ -131,7 +128,7 @@ export default ({ matchId }) => {
         </header>
         <div>
           <GameChessboard>
-            <ChessBoard fen={fen} side={(self && self.side) || null} flip={flippedBoard} onMove={onMove} />
+            <ChessBoard fen={fen} flip={flippedBoard} onMove={onMove} />
           </GameChessboard>
         </div>
       </Game>
