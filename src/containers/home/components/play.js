@@ -8,8 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const CREATE_MATCH = gql`
-  mutation createMatch {
-    createMatch {
+  mutation createMatch($input: CreateMatchInput!) {
+    createMatch(input: $input) {
       id
     }
   }
@@ -59,7 +59,7 @@ export default ({}) => {
       data: {
         createMatch: { id },
       },
-    } = await createMatch();
+    } = await createMatch({ variables: { input: {} } });
     history.push(`/match/${id}`);
   };
 
@@ -72,18 +72,29 @@ export default ({}) => {
         </Add>
       </header>
       <main>
+        <Prefs></Prefs>
         {data && data.availableMatches.length > 0 && (
           <table>
             <tbody>
               {data.availableMatches.map(match => (
-                <tr onClick={() => history.push(`/match/${match.id}`)} key={match.id}>
-                  <td>{match.participants.length}</td>
-                </tr>
+                <MatchCell onClick={() => history.push(`/match/${match.id}`)} key={match.id} match={match} />
               ))}
             </tbody>
           </table>
         )}
       </main>
     </Play>
+  );
+};
+
+const MatchCell = ({ match, onClick }) => {
+  const { participants = [] } = match;
+  const white = participants.find(p => p.side == 'w') || { user: { username: '???' } };
+  const black = participants.find(p => p.side == 'b') || null;
+
+  return (
+    <tr onClick={onClick}>
+      <td>{white.user.username}</td>
+    </tr>
   );
 };
