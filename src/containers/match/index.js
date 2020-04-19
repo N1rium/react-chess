@@ -128,7 +128,7 @@ export default ({ matchId }) => {
         </header>
         <div>
           <GameChessboard>
-            <ChessBoard fen={fen} flip={flippedBoard} onMove={onMove} />
+            <ChessBoard fen={fen} side={(self && self.side) || null} flip={flippedBoard} onMove={onMove} />
           </GameChessboard>
         </div>
       </Game>
