@@ -25,7 +25,7 @@ const Captured = styled.div`
 `;
 
 export default ({ player, turn, captured = [] }) => {
-  const { user: { username = 'Empty slot', side } = {} } = player || {};
+  const { user: { username = 'Empty slot' } = {}, side } = player || {};
 
   return (
     <PlayerContainer>
