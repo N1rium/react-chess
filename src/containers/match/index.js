@@ -50,10 +50,13 @@ export default ({ matchId }) => {
   }, [subData]);
 
   useEffect(() => {
-    const { matchById } = data;
     if (data && data.matchById) {
+      const { matchById } = data;
+      const { participants } = matchById;
+      const self = participants.find((p) => p.user.id == data.me.id);
       setMatch(matchById);
       setMe(data.me);
+      setFlippedBoard(self && self.side === 'b');
     }
   }, [data]);
 
@@ -82,8 +85,9 @@ export default ({ matchId }) => {
     return `${turns[turn]}s turn!`;
   };
 
-  const whitePlayer = participants.find(p => p.side == 'w') || null;
-  const blackPlayer = participants.find(p => p.side == 'b') || null;
+  const whitePlayer = participants.find((p) => p.side == 'w') || null;
+  const blackPlayer = participants.find((p) => p.side == 'b') || null;
+  const self = participants.find((p) => p.user.id == me.id);
 
   return (
     <Layout>
@@ -103,7 +107,7 @@ export default ({ matchId }) => {
           <ChessBoard fen={fens[fenIndex]} showIndexes={false} />
         </PlaybackChess>
         <footer>
-          <PlaybackModule items={fens} onChange={i => setFenIndex(i)} />
+          <PlaybackModule items={fens} onChange={(i) => setFenIndex(i)} />
         </footer>
       </PlaybackContainer>
       <ChatContainer>
@@ -116,7 +120,7 @@ export default ({ matchId }) => {
         </header>
         <Chat
           messages={chatMessages}
-          onSendMessage={message => sendChatMessage({ variables: { input: { room: matchId, message } } })}
+          onSendMessage={(message) => sendChatMessage({ variables: { input: { room: matchId, message } } })}
         ></Chat>
       </ChatContainer>
       <Game>

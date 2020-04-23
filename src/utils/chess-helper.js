@@ -28,7 +28,7 @@ export const valuesFromPGN = pgn => {
     if (newMove) {
       fens.push(chess.fen());
       moves.push(newMove);
-      const { captured: moveCapture, color, from, to, san } = newMove;
+      const { captured: moveCapture, color, san } = newMove;
       if (moveCapture) captured.push(`${color === 'w' ? 'b' : 'w'}${moveCapture}`);
       sans.push(san);
     }
@@ -42,7 +42,6 @@ export const valuesFromPGN = pgn => {
 };
 
 export const movesFromPGN = ({ pgn = '', merged = true }) => {
-  console.log(pgn);
   /* delete all headers */
   let ms = pgn.replace(HEADERS, '');
 

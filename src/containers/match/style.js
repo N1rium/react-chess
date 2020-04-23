@@ -42,7 +42,6 @@ const GameChessboard = styled.div`
 
 const ChatContainer = styled.section`
   grid-area: chat;
-  overflow: hidden;
   .chat-window {
     height: calc(100% - 45px);
   }
