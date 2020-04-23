@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { wikipedia } from '../pieces';
 import Pawn from 'Components/styled/pawn';
 
-const Cell = styled.div.attrs(props => ({
+const Cell = styled.div.attrs((props) => ({
   className: `cell ${props.highlight ? 'highlighted' : ''} ${props.grabbable ? 'grabbable' : ''} ${
     props.active ? 'active' : ''
-  } ${props.identity ? props.identity : ''}`,
+  } ${props.identity ? props.identity : ''} ${props.lastMove ? 'last-move' : ''}`,
 }))`
   position: relative;
   width: 12.5%;
@@ -25,6 +25,9 @@ const Cell = styled.div.attrs(props => ({
       position: absolute;
       pointer-events: none;
     }
+  }
+  &.last-move {
+    background: green !important;
   }
   &.grabbable {
     cursor: grab;
@@ -55,7 +58,7 @@ const Letter = styled(Index).attrs({ className: 'index cell-letter' })`
   left: 2px;
 `;
 
-export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlight, showIndexes = true }) => {
+export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, lastMove, highlight, showIndexes = true }) => {
   const imgRef = useRef(null);
 
   return (
@@ -64,13 +67,14 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, highlig
       identity={cell && `${cell.color}${cell.type}`}
       active={cell && square == moveStart}
       highlight={highlight}
+      lastMove={lastMove}
       grabbable={cell && cell.color}
       isBlack={cell && cell.color === 'b'}
       onClick={onClick}
-      onDragOver={e => e.preventDefault()}
+      onDragOver={(e) => e.preventDefault()}
       onDrop={onDrop}
       draggable={!!cell}
-      onDragStart={e => {
+      onDragStart={(e) => {
         const img = imgRef.current;
         e.dataTransfer.setDragImage(img, img.width / 2, img.width / 2);
         onDragStart(e);
