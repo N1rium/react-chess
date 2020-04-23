@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Chat from '../../components/chat';
 import Profile from './components/profile';
@@ -10,8 +10,8 @@ const Layout = styled.div`
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   grid-template-areas:
-    'profile play'
-    'chat play';
+    'profile lobbies'
+    'chat ongoing';
   grid-template-columns: auto;
   grid-template-rows: auto;
   justify-content: stretch;
@@ -22,23 +22,27 @@ const Layout = styled.div`
 
 const ChatContainer = styled.section`
   grid-area: chat;
+  .chat-window {
+    height: calc(100% - 45px);
+  }
+`;
+
+const OngoingContainer = styled.section`
+  grid-area: ongoing;
 `;
 
 export default () => {
-  useEffect(() => {
-    const token = localStorage.getItem('token', null);
-    if (!token) {
-      localStorage.setItem('token', '0');
-    }
-  }, []);
-
   return (
     <Layout>
       <Profile />
       <Play />
       <ChatContainer>
+        <header>Chat</header>
         <Chat />
       </ChatContainer>
+      <OngoingContainer>
+        <header>Ongoing</header>
+      </OngoingContainer>
     </Layout>
   );
 };
