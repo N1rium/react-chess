@@ -18,7 +18,7 @@ const Captured = styled.div`
   display: flex;
   align-items: center;
   color: ${props => (props.side === 'w' ? '#000' : '#fff')};
-  font-size: 1.5em;
+  font-size: 1.5rem;
   svg {
     margin: 0px 2px;
   }

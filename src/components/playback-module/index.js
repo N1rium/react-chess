@@ -16,12 +16,12 @@ const PlaybackPanel = styled(Flex)``;
 const SliderContainer = styled(Flex)``;
 const Slider = styled.input.attrs({ type: 'range', step: '1' })``;
 const IconButton = styled.div`
-  font-size: 1em;
+  font-size: 1rem;
   margin: 0 0.5em;
 `;
 
 const PlayButton = styled(IconButton)`
-  font-size: 1.25em;
+  font-size: 1.25rem;
 `;
 
 export default ({

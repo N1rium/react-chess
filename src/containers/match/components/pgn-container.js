@@ -12,7 +12,7 @@ const Turn = styled.div``;
 const Row = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   padding: 10px 0px;
   &:nth-child(2n + 0) {
     background: rgba(0, 0, 0, 0.25);

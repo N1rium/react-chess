@@ -16,20 +16,20 @@ const Header = styled.header`
   padding: 0 20px;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
   svg {
-    font-size: 1.5em;
+    font-size: 1.5rem;
   }
 `;
 
 const Title = styled.h1`
   margin: 0;
   padding: 0;
-  font-size: 1.25em;
+  font-size: 1.25rem;
   margin-left: 0.5em;
   font-weight: 900;
   text-decoration: underline;
   span {
     font-weight: normal;
-    font-size: 0.6em;
+    font-size: 0.6rem;
   }
 `;
 

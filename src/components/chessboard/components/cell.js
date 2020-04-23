@@ -14,7 +14,7 @@ const Cell = styled.div.attrs(props => ({
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2em;
+  font-size: 2rem;
   &.highlighted {
     &:after {
       content: '';
@@ -39,7 +39,7 @@ const Cell = styled.div.attrs(props => ({
 
 const Index = styled.div`
   position: absolute;
-  font-size: 0.33em;
+  font-size: 0.33rem;
   font-weight: bold;
   visibility: hidden;
   user-select: none;

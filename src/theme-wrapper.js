@@ -30,6 +30,33 @@ const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.primaryTextColor};
   }
 
+  table {
+    width: 100%;
+    border-spacing: 0;
+    &.zebra {
+      tr:nth-child(odd) {
+        background: #1f1e1e;
+      }
+    }
+  }
+
+  td {
+    padding: 5px;
+    &:first-child {
+      padding-left: 10px;
+    }
+    &:last-child {
+      padding-right: 10px;
+    }
+    &.right {
+      text-align: right;
+    }
+  }
+
+  span {
+    font-size: 0.8rem;
+  }
+
   #app-container {
     width: 100%;
     height: 100%;
@@ -47,7 +74,7 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     padding: 0.5em 1.5em;
     color: #f0f4f2;
-    font-size: 1em;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     &:hover {
