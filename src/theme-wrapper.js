@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { connect } from 'react-redux';
 
-const mapStateToProps = state => ({});
+const mapStateToProps = (state) => ({});
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background: #121212;
-    color: ${props => props.theme.primaryTextColor};
+    color: ${(props) => props.theme.primaryTextColor};
     overflow: hidden;
   }
 
@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: ${props => props.theme.primaryTextColor};
+    color: ${(props) => props.theme.primaryTextColor};
   }
 
   table {
