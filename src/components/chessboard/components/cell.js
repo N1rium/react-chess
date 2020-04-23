@@ -39,7 +39,7 @@ const Cell = styled.div.attrs(props => ({
 
 const Index = styled.div`
   position: absolute;
-  font-size: 0.33rem;
+  font-size: 0.33em;
   font-weight: bold;
   visibility: hidden;
   user-select: none;
