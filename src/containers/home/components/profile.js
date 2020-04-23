@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const ME = gql`
   query me {
     me {
+      id
       username
     }
   }
