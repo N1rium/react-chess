@@ -21,8 +21,8 @@ export default ({}) => {
   return (
     <Profile>
       <header>
-        {loading && <span>Loading...</span>}
-        <span>{!loading && data && data.me.username}</span>
+        {loading && <div>Loading...</div>}
+        <div>{!loading && data && data.me.username}</div>
       </header>
     </Profile>
   );
