@@ -7,12 +7,11 @@ const PGNContainer = styled.section`
   grid-area: pgn;
 `;
 
-const Turn = styled.div``;
+const Turn = styled.span``;
 
 const Row = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.8rem;
   padding: 10px 0px;
   &:nth-child(2n + 0) {
     background: rgba(0, 0, 0, 0.25);
@@ -27,7 +26,7 @@ const Row = styled.div`
   }
 `;
 
-const Move = styled.div.attrs({ className: 'hover-btn' })``;
+const Move = styled.span.attrs({ className: 'hover-btn' })``;
 
 const Main = styled.main`
   height: 100%;

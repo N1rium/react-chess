@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export default styled.div.attrs({ className: 'pawn' })`
-  color: ${props => (props.isBlack ? '#000' : '#fff')};
+  color: ${(props) => (props.isBlack ? '#000' : '#fff')};
   transition: all 0.15s ease-in-out;
   will-change: transform, opacity;
   animation: spawn 0.15s ease-in-out;

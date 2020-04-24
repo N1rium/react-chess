@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: #121212;
+    background: ${(props) => props.theme.background};
     color: ${(props) => props.theme.primaryTextColor};
     overflow: hidden;
   }
@@ -103,12 +103,12 @@ const GlobalStyle = createGlobalStyle`
 
   section {
     position: relative;
-    background: #232323;
+    background: ${(props) => props.theme.surface};
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
     border: 1px solid rgba(0,0,0,0.5);
     border-radius: 3px;
     & > header, & > footer {
-      background: #232323;
+      background: ${(props) => props.theme.surface};
       padding: 10px;
     }
     & > header {
@@ -127,7 +127,14 @@ const GlobalStyle = createGlobalStyle`
 const ThemeWrapper = ({ children }) => {
   const theme = {};
   const darkTheme = {
+    background: '#191919',
+    surface: '#232323',
     primaryTextColor: '#E0E0E0',
+  };
+  const lightTheme = {
+    background: '#fff',
+    surface: '#c3b7a6',
+    primaryTextColor: '#fff',
   };
   return (
     <ThemeProvider theme={{ ...theme, ...darkTheme }}>
