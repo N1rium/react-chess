@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Board, Row } from './style';
 import Cell from './components/cell';
 import Chess from 'chess.js';
-import { valuesFromPGN } from '../../utils/chess-helper';
 
 export default ({
   pgn,
@@ -29,7 +28,7 @@ export default ({
     if (pgn) {
       const c = new Chess();
       c.load_pgn(pgn);
-      const { moves = [] } = valuesFromPGN(pgn);
+      const moves = c.history({ verbose: true });
       if (moves.length) {
         const { from, to } = moves[moves.length - 1];
         setHighlighted([from, to]);

@@ -6,7 +6,7 @@ import Pawn from 'Components/styled/pawn';
 const Cell = styled.div.attrs((props) => ({
   className: `cell ${props.highlight ? 'highlighted' : ''} ${props.grabbable ? 'grabbable' : ''} ${
     props.active ? 'active' : ''
-  } ${props.identity ? props.identity : ''} ${props.lastMove ? 'last-move' : ''}`,
+  } ${props.identity ? props.identity : ''}`,
 }))`
   position: relative;
   width: 12.5%;
@@ -25,9 +25,6 @@ const Cell = styled.div.attrs((props) => ({
       position: absolute;
       pointer-events: none;
     }
-  }
-  &.last-move {
-    background: green !important;
   }
   &.grabbable {
     cursor: grab;
@@ -58,6 +55,15 @@ const Letter = styled(Index).attrs({ className: 'index cell-letter' })`
   left: 2px;
 `;
 
+const LastMove = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(128, 206, 46, 0.5);
+  z-index: 0;
+  pointer-events: none;
+`;
+
 export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, lastMove, highlight, showIndexes = true }) => {
   const imgRef = useRef(null);
 
@@ -67,7 +73,6 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, lastMov
       identity={cell && `${cell.color}${cell.type}`}
       active={cell && square == moveStart}
       highlight={highlight}
-      lastMove={lastMove}
       grabbable={cell && cell.color}
       isBlack={cell && cell.color === 'b'}
       onClick={onClick}
@@ -86,6 +91,7 @@ export default ({ cell, moveStart, square, onClick, onDrop, onDragStart, lastMov
           <img ref={imgRef} src={wikipedia[`${cell.color}${cell.type}`]} />
         </Pawn>
       )}
+      {lastMove && <LastMove />}
       {showIndexes && (
         <>
           <Letter>{square.charAt(0)}</Letter>
