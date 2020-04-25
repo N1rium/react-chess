@@ -45,6 +45,9 @@ export default ({ matchId }) => {
 
   useEffect(() => {
     if (subData) {
+      const { matchMoveMade } = subData;
+      const { pgn } = matchMoveMade;
+      if (pgn != match.pgn) moveSound.play();
       setMatch(subData.matchMoveMade);
     }
   }, [subData]);
@@ -71,8 +74,8 @@ export default ({ matchId }) => {
 
   if (!match) return null;
 
-  const { fen, pgn, turn, participants = [], gameOver } = match;
-  const { fens, captured } = valuesFromPGN(pgn);
+  const { pgn, turn, participants = [], gameOver } = match;
+  const { fens, captured, moves = [] } = valuesFromPGN(pgn);
 
   const getGameHeader = () => {
     const turns = {
@@ -104,7 +107,7 @@ export default ({ matchId }) => {
           <div />
         </header>
         <PlaybackChess>
-          <ChessBoard fen={fens[fenIndex]} showIndexes={false} />
+          <ChessBoard pgn={pgn} moveIndex={fenIndex} showIndexes={false} />
         </PlaybackChess>
         <footer>
           <PlaybackModule items={fens} onChange={(i) => setFenIndex(i)} />
@@ -132,7 +135,8 @@ export default ({ matchId }) => {
         </header>
         <div>
           <GameChessboard>
-            <ChessBoard fen={fen} side={(self && self.side) || null} flip={flippedBoard} onMove={onMove} />
+            <ChessBoard pgn={pgn} flip={flippedBoard} onMove={onMove} />
+            {/* side={(self && self.side) || null} */}
           </GameChessboard>
         </div>
       </Game>

@@ -17,23 +17,25 @@ const MyMatches = styled.section`
 `;
 
 export default () => {
-  const { data: ongoing, loading } = useQuery(MY_ONGOING_MATCHES);
+  const { data, loading } = useQuery(MY_ONGOING_MATCHES);
   return (
     <MyMatches>
       <header>Ongoing</header>
-      {!loading && (
-        <table className="zebra">
-          <tbody>
-            {ongoing.myOngoingMatches.map((match) => (
-              <tr key={match.id} onClick={() => history.push(`/match/${match.id}`)}>
-                <td>
-                  <span>{match.id}</span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <main>
+        {!loading && (
+          <table className="zebra">
+            <tbody>
+              {data.myOngoingMatches.map((match) => (
+                <tr key={match.id} onClick={() => history.push(`/match/${match.id}`)}>
+                  <td>
+                    <span>{match.id}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </main>
     </MyMatches>
   );
 };

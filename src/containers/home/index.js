@@ -5,6 +5,7 @@ import Profile from './components/profile';
 import Play from './components/play';
 import Ongoing from './components/ongoing';
 import Finished from './components/finished';
+import Matchmaking from './components/matchmaking';
 
 const Layout = styled.div`
   display: grid;
@@ -12,10 +13,10 @@ const Layout = styled.div`
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   grid-template-areas:
-    'profile lobbies lobbies'
-    'chat ongoing finished';
+    'profile lobbies lobbies matchmaking'
+    'chat chat ongoing finished';
   grid-template-columns: auto;
-  grid-template-rows: 50% 50%;
+  grid-template-rows: 50% auto;
   justify-content: stretch;
   align-items: stretch;
   width: 100%;
@@ -34,6 +35,7 @@ export default () => {
     <Layout>
       <Profile />
       <Play />
+      <Matchmaking />
       <ChatContainer>
         <header>Chat</header>
         <Chat />

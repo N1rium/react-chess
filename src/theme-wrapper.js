@@ -73,7 +73,7 @@ const GlobalStyle = createGlobalStyle`
 
   button {
     border-radius: 3px;
-    background: #3b87ff;
+    background: ${(props) => props.theme.accent};
     outline: none;
     border: none;
     padding: 0.5em 1.5em;
@@ -107,11 +107,21 @@ const GlobalStyle = createGlobalStyle`
 
   section {
     position: relative;
+    overflow: hidden;
     background: ${(props) => props.theme.surface};
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);
     border: 1px solid rgba(0,0,0,0.5);
     border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+
+    & > main {
+      flex: 1 1 auto;
+      overflow: auto;
+    }
+
     & > header, & > footer {
+      flex: 0 0 auto;
       background: ${(props) => props.theme.surface};
       padding: 10px;
     }
@@ -132,6 +142,8 @@ const ThemeWrapper = ({ children }) => {
   const theme = {
     mediaLaptop: '1024px',
     mediaTablet: '768px',
+    danger: '#dc2c2c',
+    accent: '#3b87ff',
   };
 
   const darkTheme = {
