@@ -11,7 +11,7 @@ const Header = styled.header`
   align-items: center;
   width: 100%;
   height: 48px;
-  background: ${(props) => props.theme.surface};
+  background: #232323;
   font-weight: bold;
   padding: 0 20px;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.24);

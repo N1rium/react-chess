@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import { useMutation } from '@apollo/react-hooks';
 import { REGISTER, LOGIN } from './queries';
 import history from '../../store/history';
+import Chessboard from '../../components/chessboard';
+import { VincentVsMagnus, UweVsDrazen, SpasskyVsFischer } from './pgn';
 
 const Login = styled.div.attrs({ id: 'login-container' })`
   width: 100%;
   height: 100%;
   text-align: center;
+  overflow-y: auto;
 `;
 
 const Title = styled.h1``;
@@ -28,6 +31,27 @@ const Form = styled.form`
   & > * {
     margin: 10px 0px;
   }
+`;
+
+const FullScreenView = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
+
+const LoginView = styled(FullScreenView)`
+  padding-top: 100px;
+  height: 90vh;
+`;
+
+const ChessboardRow = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+`;
+
+const ChessBoardWrapper = styled.div`
+  width: ${(props) => props.size};
+  height: ${(props) => props.size};
 `;
 
 const EmailInput = styled.input.attrs({ type: 'text', placeholder: 'email' })``;
@@ -60,36 +84,61 @@ export default ({}) => {
 
   return (
     <Login>
-      <Title>Welcome</Title>
-      <SubTitle>to Chessports!</SubTitle>
-      <LoginSection>
-        {state === 0 && (
-          <>
-            <header>Sign in</header>
-            <Form onSubmit={e => e.preventDefault()}>
-              <EmailInput value={email} onChange={e => setEmail(e.target.value)} />
-              <PasswordInput value={password} onChange={e => setPassword(e.target.value)} />
-              <SubmitButton onClick={() => login({ variables: { input: { email, password } } })}>Done</SubmitButton>
-            </Form>
-          </>
-        )}
-        {state === 1 && (
-          <>
-            <header>Register</header>
-            <Form onSubmit={e => e.preventDefault()}>
-              <EmailInput value={email} onChange={e => setEmail(e.target.value)} />
-              <UsernameInput value={username} onChange={e => setUsername(e.target.value)} />
-              <PasswordInput value={password} onChange={e => setPassword(e.target.value)} />
-              <PasswordRepeatInput value={passwordRepeat} onChange={e => setPasswordRepeat(e.target.value)} />
-              <SubmitButton
-                onClick={() => register({ variables: { input: { email, username, password, passwordRepeat } } })}
-              >
-                Done
-              </SubmitButton>
-            </Form>
-          </>
-        )}
-      </LoginSection>
+      <LoginView>
+        <Title>Welcome</Title>
+        <SubTitle>to Chessports!</SubTitle>
+        <LoginSection>
+          {state === 0 && (
+            <>
+              <header>Sign in</header>
+              <Form onSubmit={(e) => e.preventDefault()}>
+                <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} />
+                <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} />
+                <SubmitButton onClick={() => login({ variables: { input: { email, password } } })}>Done</SubmitButton>
+              </Form>
+            </>
+          )}
+          {state === 1 && (
+            <>
+              <header>Register</header>
+              <Form onSubmit={(e) => e.preventDefault()}>
+                <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} />
+                <UsernameInput value={username} onChange={(e) => setUsername(e.target.value)} />
+                <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} />
+                <PasswordRepeatInput value={passwordRepeat} onChange={(e) => setPasswordRepeat(e.target.value)} />
+                <SubmitButton
+                  onClick={() => register({ variables: { input: { email, username, password, passwordRepeat } } })}
+                >
+                  Done
+                </SubmitButton>
+              </Form>
+            </>
+          )}
+        </LoginSection>
+      </LoginView>
+      <FullScreenView>
+        <h1>Revisit favourite games</h1>
+        <ChessboardRow>
+          <ChessBoardWrapper size={'256px'}>
+            <span>Vincent Keymer vs. Magnus Carlsen - 2019</span>
+            <Chessboard showIndexes={false} pgn={VincentVsMagnus} />
+          </ChessBoardWrapper>
+          <ChessBoardWrapper size={'256px'}>
+            <span>Spassky vs. Fischer - 1972</span>
+            <Chessboard showIndexes={false} pgn={SpasskyVsFischer} />
+          </ChessBoardWrapper>
+          <ChessBoardWrapper size={'256px'}>
+            <span>Uwe Kunsztowicz vs. Drazen Marovic - 1973</span>
+            <Chessboard showIndexes={false} pgn={UweVsDrazen} />
+          </ChessBoardWrapper>
+        </ChessboardRow>
+      </FullScreenView>
+      <div>
+        <h1>Try it out!</h1>
+        <ChessBoardWrapper size={'512px'}>
+          <Chessboard pgn={SpasskyVsFischer} moveIndex={0} />
+        </ChessBoardWrapper>
+      </div>
     </Login>
   );
 };

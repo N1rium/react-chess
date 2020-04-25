@@ -26,6 +26,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: circular, sans-serif;
   }
 
+  h1, h2 {
+    margin: 0;
+  }
+
   a {
     color: ${(props) => props.theme.primaryTextColor};
   }
@@ -69,16 +73,16 @@ const GlobalStyle = createGlobalStyle`
 
   button {
     border-radius: 3px;
-    background: #65B260;
+    background: #3b87ff;
     outline: none;
     border: none;
     padding: 0.5em 1.5em;
-    color: #f0f4f2;
+    color: #fff;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     &:hover {
-      opacity: 0.9;
+      box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.75);
     }
     &:active {
       opacity: 0.8;
@@ -125,7 +129,10 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const ThemeWrapper = ({ children }) => {
-  const theme = {};
+  const theme = {
+    mediaLaptop: '1024px',
+  };
+
   const darkTheme = {
     background: '#191919',
     surface: '#232323',
@@ -134,7 +141,7 @@ const ThemeWrapper = ({ children }) => {
   const lightTheme = {
     background: '#fff',
     surface: '#c3b7a6',
-    primaryTextColor: '#fff',
+    primaryTextColor: '#000',
   };
   return (
     <ThemeProvider theme={{ ...theme, ...darkTheme }}>
