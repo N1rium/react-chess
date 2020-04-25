@@ -34,8 +34,8 @@ const Form = styled.form`
 `;
 
 const FullScreenView = styled.div`
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
 `;
 
 const LoginView = styled(FullScreenView)`
@@ -47,11 +47,25 @@ const ChessboardRow = styled.div`
   display: flex;
   justify-content: space-evenly;
   padding: 20px;
+  @media screen and (max-width: ${(props) => props.theme.mediaTablet}) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ChessBoardWrapper = styled.div`
-  width: ${(props) => props.size};
-  height: ${(props) => props.size};
+  width: 256px;
+  height: 256px;
+  @media screen and (max-width: ${(props) => props.theme.mediaLaptop}) {
+    width: 172px;
+    height: 172px;
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.mediaTablet}) {
+    margin-top: 25px
+    width: 256px;
+    height: 256px;
+  }
 `;
 
 const EmailInput = styled.input.attrs({ type: 'text', placeholder: 'email' })``;
@@ -120,15 +134,15 @@ export default ({}) => {
         <h1>Revisit favourite games</h1>
         <ChessboardRow>
           <ChessBoardWrapper size={'256px'}>
-            <span>Vincent Keymer vs. Magnus Carlsen - 2019</span>
+            <span>Keymer vs. Carlsen</span>
             <Chessboard showIndexes={false} pgn={VincentVsMagnus} />
           </ChessBoardWrapper>
           <ChessBoardWrapper size={'256px'}>
-            <span>Spassky vs. Fischer - 1972</span>
+            <span>Spassky vs. Fischer</span>
             <Chessboard showIndexes={false} pgn={SpasskyVsFischer} />
           </ChessBoardWrapper>
           <ChessBoardWrapper size={'256px'}>
-            <span>Uwe Kunsztowicz vs. Drazen Marovic - 1973</span>
+            <span>Kunsztowicz vs. Marovic</span>
             <Chessboard showIndexes={false} pgn={UweVsDrazen} />
           </ChessBoardWrapper>
         </ChessboardRow>
