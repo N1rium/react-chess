@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Board, Row } from './style';
 import Cell from './components/cell';
 import Chess from 'chess.js';
+import { fensFromPGN } from '../../utils/chess-helper';
 
 export default ({
   pgn,
   fen,
+  moveIndex = null,
   onMove = null,
   flip = false,
   showPossibleMoves = true,
@@ -19,7 +21,6 @@ export default ({
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [chess, setChess] = useState(null);
   const [highlighted, setHighlighted] = useState([]);
-
   const { even = '#ead9b5', odd = '#a98865' } = colors;
   const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   const numbers = [8, 7, 6, 5, 4, 3, 2, 1];
@@ -28,16 +29,19 @@ export default ({
     if (pgn) {
       const c = new Chess();
       c.load_pgn(pgn);
-      const moves = c.history({ verbose: true });
-      if (moves.length) {
-        const { from, to } = moves[moves.length - 1];
-        setHighlighted([from, to]);
+      if (moveIndex != null) {
+        const moves = [null, ...c.history({ verbose: true })];
+        const move = moves[moveIndex];
+        setHighlighted(move ? [move.from, move.to] : []);
+        const fens = fensFromPGN({ pgn });
+        setChess(moveIndex > 0 ? new Chess(fens[moveIndex]) : new Chess());
+      } else {
+        setChess(c);
       }
-      setChess(c);
     } else if (fen) {
       setChess(new Chess(fen));
     }
-  }, [fen, pgn]);
+  }, [fen, pgn, moveIndex]);
 
   const move = (move) => {
     const m = chess.move(move);
