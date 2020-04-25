@@ -131,6 +131,7 @@ const GlobalStyle = createGlobalStyle`
 const ThemeWrapper = ({ children }) => {
   const theme = {
     mediaLaptop: '1024px',
+    mediaTablet: '768px',
   };
 
   const darkTheme = {
