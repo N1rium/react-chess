@@ -12,7 +12,7 @@ const Layout = styled.div`
     'chat game pgn'
     'chat playerBottom pgn';
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: auto auto 1fr 1fr 0fr;
+  grid-template-rows: auto auto 1fr 1fr auto;
   justify-content: stretch;
   align-items: stretch;
   width: 100%;
@@ -74,11 +74,11 @@ const PlayerContainer = styled.section`
 `;
 
 const PlayerA = styled(PlayerContainer)`
-  grid-area: ${props => (props.flip ? 'playerBottom' : 'playerTop')};
+  grid-area: ${(props) => (props.flip ? 'playerBottom' : 'playerTop')};
 `;
 
 const PlayerB = styled(PlayerContainer)`
-  grid-area: ${props => (props.flip ? 'playerTop' : 'playerBottom')};
+  grid-area: ${(props) => (props.flip ? 'playerTop' : 'playerBottom')};
 `;
 
 const IconBtn = styled.div.attrs({ className: 'hover-btn' })``;

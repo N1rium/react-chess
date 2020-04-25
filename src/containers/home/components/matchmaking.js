@@ -30,7 +30,7 @@ const Message = styled.span`
 
 export default () => {
   const [loading, setLoading] = useState(false);
-  const [messages, setMessages] = useState(['Searching for match...', 'Found opponent!']);
+  const [messages, setMessages] = useState(['Searching for match...']);
 
   return (
     <Matchmaking>
