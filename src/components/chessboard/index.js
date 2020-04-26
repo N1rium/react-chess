@@ -29,13 +29,17 @@ export default ({
     if (pgn) {
       const c = new Chess();
       c.load_pgn(pgn);
+      const moves = [null, ...c.history({ verbose: true })];
       if (moveIndex != null) {
-        const moves = [null, ...c.history({ verbose: true })];
         const move = moves[moveIndex];
         setHighlighted(move ? [move.from, move.to] : []);
         const fens = fensFromPGN({ pgn });
         setChess(moveIndex > 0 ? new Chess(fens[moveIndex]) : new Chess());
       } else {
+        if (moves.length) {
+          const move = moves[moves.length - 1];
+          move && setHighlighted([move.from, move.to]);
+        }
         setChess(c);
       }
     } else if (fen) {
