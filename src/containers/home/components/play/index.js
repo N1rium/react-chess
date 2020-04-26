@@ -54,10 +54,18 @@ export default ({}) => {
   const { data: subData } = useSubscription(MATCH_INVITE_SUBSCRIPTION);
   const { data: me } = useQuery(ME);
 
+  const unload = (e) => {
+    deleteMyInvite();
+    e.returnValue = '';
+    return e.returnValue;
+  };
+
   useEffect(() => {
     getMatchInvites();
+    window.addEventListener('beforeunload', unload);
     return () => {
       deleteMyInvite();
+      window.removeEventListener('beforeunload', unload);
     };
   }, []);
 
@@ -68,7 +76,7 @@ export default ({}) => {
       } = subData;
       const invites = [...matchInvites];
       if (!deleted) setMatchInvites([...invites, invite]);
-      if (deleted) setMatchInvites([...invites].filter(i => i.id != invite.id));
+      if (deleted) setMatchInvites([...invites].filter((i) => i.id != invite.id));
     }
   }, [subData]);
 
@@ -78,7 +86,7 @@ export default ({}) => {
     }
   }, [data]);
 
-  const createMatchAndJoin = async invite => {
+  const createMatchAndJoin = async (invite) => {
     const {
       creator: { id },
     } = invite;
@@ -113,7 +121,7 @@ export default ({}) => {
           {matchInvites.length > 0 && (
             <table className="zebra">
               <tbody>
-                {matchInvites.map(matchInvite => (
+                {matchInvites.map((matchInvite) => (
                   <MatchCell
                     key={matchInvite.id}
                     self={me && me.me.id == matchInvite.creator.id}

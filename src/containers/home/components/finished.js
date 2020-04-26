@@ -24,13 +24,14 @@ export default () => {
       {!loading && (
         <table className="zebra">
           <tbody>
-            {finished.myFinishedMatches.map((match) => (
-              <tr className="hover" key={match.id} onClick={() => history.push(`/match/${match.id}`)}>
-                <td>
-                  <span>{match.id}</span>
-                </td>
-              </tr>
-            ))}
+            {finished &&
+              finished.myFinishedMatches.map((match) => (
+                <tr className="hover" key={match.id} onClick={() => history.push(`/match/${match.id}`)}>
+                  <td>
+                    <span>{match.id}</span>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       )}

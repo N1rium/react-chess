@@ -25,13 +25,14 @@ export default () => {
         {!loading && (
           <table className="zebra">
             <tbody>
-              {data.myOngoingMatches.map((match) => (
-                <tr key={match.id} onClick={() => history.push(`/match/${match.id}`)}>
-                  <td>
-                    <span>{match.id}</span>
-                  </td>
-                </tr>
-              ))}
+              {data &&
+                data.myOngoingMatches.map((match) => (
+                  <tr key={match.id} onClick={() => history.push(`/match/${match.id}`)}>
+                    <td>
+                      <span>{match.id}</span>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         )}
