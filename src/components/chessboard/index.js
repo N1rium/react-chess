@@ -29,7 +29,6 @@ export default ({
   const [numbers, setNumbers] = useState(NUMBERS);
 
   useEffect(() => {
-    console.warn('kuk');
     setLetters(!flip ? LETTERS : [...LETTERS].reverse());
     setNumbers(!flip ? NUMBERS : [...NUMBERS].reverse());
   }, [flip]);
