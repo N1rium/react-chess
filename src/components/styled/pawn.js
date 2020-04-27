@@ -13,11 +13,6 @@ export default styled.div.attrs({ className: 'pawn' })`
   pointer-events: none;
   z-index: 1;
 
-  svg {
-    width: 50% !important;
-    height: 50% !important;
-  }
-
   img {
     max-width: 100%;
     width: 100%;
