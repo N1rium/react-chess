@@ -4,6 +4,9 @@ import Cell from './components/cell';
 import Chess from 'chess.js';
 import { fensFromPGN } from '../../utils/chess-helper';
 
+const LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+const NUMBERS = [8, 7, 6, 5, 4, 3, 2, 1];
+
 export default ({
   pgn,
   fen,
@@ -22,8 +25,14 @@ export default ({
   const [chess, setChess] = useState(null);
   const [highlighted, setHighlighted] = useState([]);
   const { even = '#ead9b5', odd = '#a98865' } = colors;
-  const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-  const numbers = [8, 7, 6, 5, 4, 3, 2, 1];
+  const [letters, setLetters] = useState(LETTERS);
+  const [numbers, setNumbers] = useState(NUMBERS);
+
+  useEffect(() => {
+    console.warn('kuk');
+    setLetters(!flip ? LETTERS : [...LETTERS].reverse());
+    setNumbers(!flip ? NUMBERS : [...NUMBERS].reverse());
+  }, [flip]);
 
   useEffect(() => {
     if (pgn) {
@@ -87,14 +96,13 @@ export default ({
   const board = getBoard(chess.board());
   const turn = chess.turn();
   const inCheck = chess.in_check();
-  const _letters = !flip ? letters : [...letters].reverse();
-  const _numbers = !flip ? numbers : [...numbers].reverse();
+
   return (
     <Board size={size} inCheck={inCheck} turn={turn}>
       {board.map((row, i) => (
         <Row evenColor={even} oddColor={odd} key={i}>
           {row.map((cell, j) => {
-            const square = `${_letters[j]}${_numbers[i]}`;
+            const square = `${letters[j]}${numbers[i]}`;
             return (
               <Cell
                 key={square}
