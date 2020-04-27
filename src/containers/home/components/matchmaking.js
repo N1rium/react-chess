@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
+import Timer from '../../../components/timer';
+
 const ME = gql`
   query me {
     me {
@@ -90,7 +92,12 @@ export default () => {
 
   return (
     <Matchmaking>
-      <header>Matchmaking</header>
+      <header>
+        Matchmaking
+        <Timer format="{mm}:{ss}" timestamp={Date.now() + 1000 * 60 * 60}>
+          {({ time }) => <span>{time}</span>}
+        </Timer>
+      </header>
       <main>
         {loading && (
           <Messages>
