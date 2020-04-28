@@ -102,7 +102,7 @@ export default ({}) => {
         <Title>Welcome</Title>
         <SubTitle>to Chessports!</SubTitle>
         <LoginSection>
-          {state === 0 && (
+          {state === 1 && (
             <>
               <header>Sign in</header>
               <Form onSubmit={(e) => e.preventDefault()}>
@@ -112,7 +112,7 @@ export default ({}) => {
               </Form>
             </>
           )}
-          {state === 1 && (
+          {state === 0 && (
             <>
               <header>Register</header>
               <Form onSubmit={(e) => e.preventDefault()}>
