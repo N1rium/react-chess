@@ -62,19 +62,15 @@ export default ({ matchId }) => {
     }
   }, [data]);
 
-  const onMove = async (data = {}) => {
+  const onMove = (data = {}) => {
     const { from, to, promotion = 'q' } = data;
-    moveSound.play();
-    try {
-      const move = await sendMove({ variables: { input: { from, to, promotion, id: matchId } } });
-      // setMatch(move.data.matchMove);
-    } catch (e) {}
+    sendMove({ variables: { input: { from, to, promotion, id: matchId } } });
   };
 
   if (!match) return null;
 
   const { pgn, turn, participants = [], gameOver } = match;
-  const { fens, captured, moves = [] } = valuesFromPGN(pgn);
+  const { fens, captured } = valuesFromPGN(pgn);
 
   const getGameHeader = () => {
     const turns = {
