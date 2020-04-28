@@ -6,10 +6,11 @@ import HomeContainer from 'containers/home';
 import LocalPlayContainer from 'containers/localplay';
 import MatchContainer from 'containers/match';
 import LoginContainer from 'containers/login';
+import EmbedContainer from 'containers/embed';
 
 const getUser = () => localStorage.getItem('token');
 
-const PrivateRoute = props => {
+const PrivateRoute = (props) => {
   if (!getUser()) {
     return <Redirect to={`/login`} />;
   }
@@ -20,7 +21,7 @@ const MatchRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={routeProps => {
+      render={(routeProps) => {
         const {
           match: {
             params: { id },
@@ -37,6 +38,7 @@ const Router = () => (
     <PrivateRoute exact path="/" component={HomeContainer} />
     <PrivateRoute exact path="/localplay" component={LocalPlayContainer} />
     <MatchRoute exact path="/match/:id" component={MatchContainer} />
+    <Route exact path="/embed" component={EmbedContainer} />
     <Route exact path="/login" component={LoginContainer} />
     <Route component={() => <Redirect to="/" />} />
   </Switch>
