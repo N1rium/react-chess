@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-import Timer from '../../../components/timer';
+import Timer, { Counter } from '../../../components/timer';
 
 const ME = gql`
   query me {
@@ -59,6 +59,12 @@ const Message = styled.span`
   line-height: 2rem;
 `;
 
+const Header = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export default () => {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState(['Searching for match...']);
@@ -92,12 +98,10 @@ export default () => {
 
   return (
     <Matchmaking>
-      <header>
-        Matchmaking
-        <Timer format="{mm}:{ss}" timestamp={Date.now() + 1000 * 60 * 60}>
-          {({ time }) => <span>{time}</span>}
-        </Timer>
-      </header>
+      <Header>
+        <div>Matchmaking</div>
+        {loading && <Counter format="{mm}:{ss}">{({ time }) => <span>{time}</span>}</Counter>}
+      </Header>
       <main>
         {loading && (
           <Messages>

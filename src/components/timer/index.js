@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 export const timeBetweenDates = ({ startDate = Date.now(), endDate }) => {
   const ms = Math.abs(endDate - startDate);
@@ -18,26 +18,14 @@ export const padNumber = (number, length) => {
   return str;
 };
 
-export default ({
-  timestamp = Date.now(),
-  interval = 1000,
-  children,
-  format = '{hh}:{mm}:{ss}',
-  onDone,
-  countdown = true,
-}) => {
+export default ({ endDate, interval = 1000, children, format = '{hh}:{mm}:{ss}', onDone, countdown = true }) => {
   const [time, setTime] = useState('');
+  const [timestamp, setTimestamp] = useState(Date.now());
+  const timeRef = useRef(timestamp);
   let internalInterval = null;
 
-  const calculate = (withOnDone = false) => {
-    if (countdown === true && timestamp <= Date.now()) {
-      withOnDone && onDone && onDone();
-      clearInterval(internalInterval);
-      internalInterval = null;
-      timestamp = Date.now();
-    }
-
-    const { d, h, m, s, ms } = timeBetweenDates({ startDate: Date.now(), endDate: timestamp });
+  const calculate = () => {
+    const { d, h, m, s, ms } = timeBetweenDates({ timestamp, endDate });
 
     const str = format
       .replace('{dd}', padNumber(d, 2))
@@ -49,7 +37,7 @@ export default ({
       .replace('{m}', m)
       .replace('{s}', s);
 
-    setTime(str), interval;
+    setTime(str);
   };
 
   useEffect(() => {
@@ -58,13 +46,43 @@ export default ({
       clearInterval(internalInterval);
     }
     internalInterval = setInterval(() => {
-      calculate(true);
+      calculate();
     }, interval);
     return () => {
       clearInterval(internalInterval);
       internalInterval = null;
     };
   }, [timestamp]);
+
+  return <>{children({ time })}</>;
+};
+
+export const Counter = ({ children, interval, format = '{mm}:{ss}' }) => {
+  const [startTime, setStartTime] = useState(Date.now());
+  const [time, setTime] = useState(null);
+
+  const count = () => {
+    const { d, h, m, s, ms } = timeBetweenDates({ startDate: Date.now(), endDate: startTime });
+    const str = format
+      .replace('{dd}', padNumber(d, 2))
+      .replace('{hh}', padNumber(h, 2))
+      .replace('{mm}', padNumber(m, 2))
+      .replace('{ss}', padNumber(s, 2))
+      .replace('{d}', d)
+      .replace('{h}', h)
+      .replace('{m}', m)
+      .replace('{s}', s);
+    setTime(str);
+  };
+
+  useEffect(() => {
+    const _interval = setInterval(() => {
+      count();
+    }, interval);
+    return () => {
+      clearInterval(_interval);
+    };
+  }, []);
 
   return <>{children({ time })}</>;
 };
