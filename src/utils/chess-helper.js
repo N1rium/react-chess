@@ -1,9 +1,23 @@
 import Chess from 'chess.js';
 
-const NUMERIC_ANNOTATION = /\$\d+/g;
-const MOVE_NUMBER = /\d+\.(\.\.)?/g;
-const COMMENT = /(\{[^}]+\})+?/g;
-const HEADERS = /\[.*?\]/g;
+export const NUMERIC_ANNOTATION = /\$\d+/g;
+export const MOVE_NUMBER = /\d+\.(\.\.)?/g;
+export const COMMENT = /(\{[^}]+\})+?/g;
+export const HEADERS = /\[.*?\]/g;
+
+export const RESULT = {
+  WHITE_WON: '1-0',
+  BLACK_WON: '0-1',
+  DRAW: '1/2-1/2',
+  OTHER: '*',
+};
+
+export const RATING = {
+  BULLET: 'BULLET',
+  BLITZ: 'BLITZ',
+  RAPID: 'RAPID',
+  CLASSICAL: 'CLASSICAL',
+};
 
 export const fensFromPGN = ({ pgn }) => {
   const moves = movesFromPGN({ pgn });
@@ -127,7 +141,7 @@ export const fenToObj = (fen) => {
   return position;
 };
 
-/* ================================================ ELO ========================================================== /*
+/* ================================================ ELO ========================================================== */
 
 /* Get expected ELO */
 export const expectedELO = (a, b) => {
@@ -143,4 +157,21 @@ export const updateELO = (expected, result, current, k = 20) => {
 export const eloChange = (a, b, res, k) => {
   const expected = expectedELO(a, b);
   return updateELO(expected, res, a);
+};
+
+/* ====================================== GAME MODE / TIME CONTROLS =============================================== */
+
+//https://support.chess.com/article/330-why-are-there-different-ratings-in-live-chess
+export const getTimeFromTimeControl = (minutes, increment, avgMoves = 40) => {
+  const minutesInMilliseconds = minutes * 60 * 1000;
+  return minutesInMilliseconds + avgMoves * (increment * 1000);
+};
+
+export const getRatingFromTimeControl = (minutes, increment, avgMoves = 40) => {
+  const ms = getTimeFromTimeControl(minutes, increment, avgMoves);
+  const MINUTE = 1000 * 60;
+  if (ms <= MINUTE * 3) return RATING.BULLET;
+  if (ms <= MINUTE * 10) return RATING.BLITZ;
+  if (ms <= MINUTE * 20) return RATING.RAPID;
+  return RATING.CLASSICAL;
 };
