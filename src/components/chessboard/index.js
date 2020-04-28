@@ -72,6 +72,7 @@ export default ({
   };
 
   const onCellSelect = (square) => {
+    if (chess.game_over()) return;
     if (moveStart) {
       if (possibleMoves.includes(square)) {
         move({ from: moveStart, to: square, promotion });
