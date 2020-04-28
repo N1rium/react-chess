@@ -46,9 +46,8 @@ export default ({ matchId }) => {
   useEffect(() => {
     if (subData) {
       const { matchMoveMade } = subData;
-      const { pgn } = matchMoveMade;
-      if (pgn != match.pgn) moveSound.play();
-      setMatch(subData.matchMoveMade);
+      moveSound.play();
+      setMatch(matchMoveMade);
     }
   }, [subData]);
 
