@@ -21,7 +21,6 @@ export const padNumber = (number, length) => {
 export default ({ endDate, interval = 1000, children, format = '{hh}:{mm}:{ss}', onDone, countdown = true }) => {
   const [time, setTime] = useState('');
   const [timestamp, setTimestamp] = useState(Date.now());
-  const timeRef = useRef(timestamp);
   let internalInterval = null;
 
   const calculate = () => {
@@ -55,6 +54,21 @@ export default ({ endDate, interval = 1000, children, format = '{hh}:{mm}:{ss}',
   }, [timestamp]);
 
   return <>{children({ time })}</>;
+};
+
+export const Time = ({ children, time, format = '{mm}:{ss}' }) => {
+  console.warn(time);
+  const { d, h, m, s, ms } = timeBetweenDates({ startDate: Date.now(), endDate: Date.now() + time });
+  const str = format
+    .replace('{dd}', padNumber(d, 2))
+    .replace('{hh}', padNumber(h, 2))
+    .replace('{mm}', padNumber(m, 2))
+    .replace('{ss}', padNumber(s, 2))
+    .replace('{d}', d)
+    .replace('{h}', h)
+    .replace('{m}', m)
+    .replace('{s}', s);
+  return <>{children({ time: str })}</>;
 };
 
 export const Counter = ({ children, interval, format = '{mm}:{ss}' }) => {

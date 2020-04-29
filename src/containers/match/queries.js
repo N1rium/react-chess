@@ -13,6 +13,8 @@ export const GET_MATCH = gql`
       stalemate
       participants {
         side
+        pendingTimeoutDate
+        time
         user {
           id
           username
@@ -38,6 +40,8 @@ export const SEND_MOVE = gql`
       checkmate
       stalemate
       participants {
+        pendingTimeoutDate
+        time
         side
         user {
           username
@@ -69,6 +73,8 @@ export const MOVE_SUBSCRIPTION = gql`
       checkmate
       stalemate
       participants {
+        pendingTimeoutDate
+        time
         side
         user {
           username

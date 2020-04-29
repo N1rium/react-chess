@@ -75,7 +75,7 @@ const PasswordRepeatInput = styled(PasswordInput).attrs({ placeholder: 'repeat p
 const SubmitButton = styled.button``;
 
 export default ({}) => {
-  const [state, setState] = useState(0);
+  const [state, setState] = useState(1);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
