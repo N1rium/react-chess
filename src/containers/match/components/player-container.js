@@ -32,12 +32,13 @@ export default ({ player, turn, captured = [] }) => {
     <PlayerContainer>
       <UserInfo>
         <Name>{username}</Name>
-        {side === turn && (
+        {side === turn ? (
           <Timer endDate={pendingTimeoutDate} format="{mm}:{ss}">
             {({ time }) => <div>{time}</div>}
           </Timer>
+        ) : (
+          <Time time={time}>{({ time }) => <div>{time}</div>}</Time>
         )}
-        {side !== turn && <Time time={time}>{({ time }) => <div>{time}</div>}</Time>}
       </UserInfo>
       <Captured side={side}>
         {captured

@@ -73,19 +73,25 @@ const GlobalStyle = createGlobalStyle`
 
   button {
     border-radius: 3px;
-    background: ${(props) => props.theme.accent};
+    background-color: ${(props) => props.theme.accent};
     outline: none;
     border: none;
     padding: 0.5em 1.5em;
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
+    transition: background-color 0.225s ease-in-out;
+    will-change: background-color;
     cursor: pointer;
     &:hover {
       box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.75);
     }
     &:active {
       opacity: 0.8;
+    }
+    &:disabled {
+      background-color: #63676f;
+      cursor: not-allowed;
     }
   }
 
