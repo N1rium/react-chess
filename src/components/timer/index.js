@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export const timeBetweenDates = ({ startDate = Date.now(), endDate }) => {
   const ms = Math.abs(endDate - startDate);
@@ -24,7 +24,7 @@ export default ({ endDate, interval = 1000, children, format = '{hh}:{mm}:{ss}',
   let internalInterval = null;
 
   const calculate = () => {
-    const { d, h, m, s, ms } = timeBetweenDates({ timestamp, endDate });
+    const { d, h, m, s, ms } = timeBetweenDates({ timestamp, endDate: Math.max(Date.now(), endDate) });
 
     const str = format
       .replace('{dd}', padNumber(d, 2))
@@ -41,6 +41,7 @@ export default ({ endDate, interval = 1000, children, format = '{hh}:{mm}:{ss}',
 
   useEffect(() => {
     calculate();
+    if (endDate < Date.now()) return;
     if (internalInterval) {
       clearInterval(internalInterval);
     }
