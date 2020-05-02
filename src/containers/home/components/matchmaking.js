@@ -195,7 +195,7 @@ const GameMode = ({ type = 'BLITZ' }) => {
   const modes = {
     BLITZ: { icon: faFire, title: 'Blitz', rules: '5 + 0' },
     RAPID: { icon: faFrog, title: 'Rapid', rules: '10 + 0' },
-    CLASSICAL: { icon: faChess, title: 'Classical', rules: '20 + 0' },
+    CLASSICAL: { icon: faChess, title: 'Classical', rules: '25 + 0' },
     BULLET: { icon: faBolt, title: 'Bullet', rules: '1 + 0' },
   };
 

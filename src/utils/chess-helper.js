@@ -172,6 +172,6 @@ export const getRatingFromTimeControl = (minutes, increment, avgMoves = 40) => {
   const MINUTE = 1000 * 60;
   if (ms <= MINUTE * 3) return RATING.BULLET;
   if (ms <= MINUTE * 10) return RATING.BLITZ;
-  if (ms <= MINUTE * 20) return RATING.RAPID;
+  if (ms <= MINUTE * 25) return RATING.RAPID;
   return RATING.CLASSICAL;
 };
