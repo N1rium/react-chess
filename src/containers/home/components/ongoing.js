@@ -17,7 +17,7 @@ const MyMatches = styled.section`
 `;
 
 export default () => {
-  const { data, loading } = useQuery(MY_ONGOING_MATCHES);
+  const { data, loading } = useQuery(MY_ONGOING_MATCHES, { fetchPolicy: 'cache-and-network' });
   return (
     <MyMatches>
       <header>Ongoing</header>

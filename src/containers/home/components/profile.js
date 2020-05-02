@@ -8,6 +8,7 @@ const ME = gql`
     me {
       id
       username
+      blitzElo
     }
   }
 `;
@@ -17,7 +18,7 @@ const Profile = styled.section`
 `;
 
 export default ({}) => {
-  const { data, loading } = useQuery(ME);
+  const { data, loading } = useQuery(ME, { fetchPolicy: 'cache-and-network' });
 
   return (
     <Profile>
@@ -25,6 +26,11 @@ export default ({}) => {
         {loading && <div>Loading...</div>}
         <div>{!loading && data && data.me.username}</div>
       </header>
+      {!loading && data && (
+        <main>
+          <span>Blitz: {data.me.blitzElo}</span>
+        </main>
+      )}
     </Profile>
   );
 };

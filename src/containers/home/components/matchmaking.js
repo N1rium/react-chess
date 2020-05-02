@@ -3,9 +3,19 @@ import history from '../../../store/history';
 import gql from 'graphql-tag';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 import styled from 'styled-components';
+import Flex from '../../../components/styled/flex';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlay,
+  faSpinner,
+  faFire,
+  faBolt,
+  faChess,
+  faFrog,
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
 
 import Timer, { Counter } from '../../../components/timer';
 
@@ -65,8 +75,33 @@ const Header = styled.header`
   justify-content: space-between;
 `;
 
+const GameModes = styled(Flex).attrs({ align: 'center', justify: 'center' })`
+  width: 100%;
+  height: 100%;
+`;
+
+const Arrow = styled.div.attrs({ className: 'hover-btn' })`
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 20px;
+  cursor: pointer;
+`;
+
+const ArrowLeft = styled(Arrow)`
+  left: 0px;
+`;
+
+const ArrowRight = styled(Arrow)`
+  right: 0px;
+`;
+
 export default () => {
   const [loading, setLoading] = useState(false);
+  const [gameModes, setGameModes] = useState(['BLITZ', 'RAPID', 'CLASSICAL', 'BULLET']);
+  const [gameModeIndex, setGameModeIndex] = useState(0);
   const [messages, setMessages] = useState(['Searching for match...']);
   const { data: meData } = useQuery(ME);
   const { data } = useSubscription(QUEUE, {
@@ -83,7 +118,6 @@ export default () => {
   };
 
   useEffect(() => {
-    console.warn(data);
     if (data) {
       const {
         matchmake: { matchId = null },
@@ -110,6 +144,17 @@ export default () => {
             ))}
           </Messages>
         )}
+        {!loading && (
+          <GameModes>
+            <ArrowLeft onClick={() => setGameModeIndex(gameModeIndex - 1)}>
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </ArrowLeft>
+            <GameMode type={gameModes[((gameModeIndex % gameModes.length) + gameModes.length) % gameModes.length]} />
+            <ArrowRight onClick={() => setGameModeIndex(gameModeIndex + 1)}>
+              <FontAwesomeIcon icon={faChevronRight} />
+            </ArrowRight>
+          </GameModes>
+        )}
       </main>
       <Footer>
         <PlayButton loading={loading.toString()} onClick={click}>
@@ -117,5 +162,50 @@ export default () => {
         </PlayButton>
       </Footer>
     </Matchmaking>
+  );
+};
+
+const GameModeStyled = styled.div`
+  text-align: center;
+  font-size: 3em;
+  user-select: none;
+`;
+const Title = styled.div`
+  font-weight: 900;
+  animation: title-in 0.5s ease-in-out;
+  @keyframes title-in {
+    0% {
+      transform: translateX(-25%);
+      opacity: 0;
+    }
+    80% {
+      transform: translateX(0%);
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`;
+
+const Rules = styled.div`
+  font-weight: bold;
+`;
+
+const GameMode = ({ type = 'BLITZ' }) => {
+  const modes = {
+    BLITZ: { icon: faFire, title: 'Blitz', rules: '5 + 0' },
+    RAPID: { icon: faFrog, title: 'Rapid', rules: '10 + 0' },
+    CLASSICAL: { icon: faChess, title: 'Classical', rules: '20 + 0' },
+    BULLET: { icon: faBolt, title: 'Bullet', rules: '1 + 0' },
+  };
+
+  const { icon, title, rules } = modes[type];
+
+  return (
+    <GameModeStyled>
+      <Title>{title}</Title>
+      <FontAwesomeIcon icon={icon} />
+      <Rules>{rules}</Rules>
+    </GameModeStyled>
   );
 };

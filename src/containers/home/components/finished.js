@@ -17,7 +17,7 @@ const MyMatches = styled.section`
 `;
 
 export default () => {
-  const { data: finished, loading } = useQuery(MY_FINISHED_MATCHES);
+  const { data: finished, loading } = useQuery(MY_FINISHED_MATCHES, { fetchPolicy: 'cache-and-network' });
   return (
     <MyMatches>
       <header>Finished</header>

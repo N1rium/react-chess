@@ -154,9 +154,9 @@ export const updateELO = (expected, result, current, k = 20) => {
 };
 
 /* Get expected ELO and update it */
-export const eloChange = (a, b, res, k) => {
+export const eloChange = (a, b, res, k = 20) => {
   const expected = expectedELO(a, b);
-  return updateELO(expected, res, a);
+  return updateELO(expected, res, a, k);
 };
 
 /* ====================================== GAME MODE / TIME CONTROLS =============================================== */
