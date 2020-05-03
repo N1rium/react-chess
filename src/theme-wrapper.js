@@ -130,6 +130,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     & > header, & > footer {
+      z-index: 1;
       flex: 0 0 auto;
       background: ${(props) => props.theme.surface};
       padding: 10px;
