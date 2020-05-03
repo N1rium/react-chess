@@ -10,3 +10,8 @@ handlers:
   - url: /(.*)$
     static_files: dist/index.html
     upload: dist/index.html
+
+# [START gae_quickstart_yaml]
+env: standard
+service: frontend
+# [END gae_quickstart_yaml]
