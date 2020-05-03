@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 import styled from 'styled-components';
 import Flex from '../../../components/styled/flex';
+import GameModeIcon from '../../../components/gamemode-icon';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -130,6 +131,8 @@ export default () => {
     }
   }, [data]);
 
+  console.log(gameModeIndex);
+
   return (
     <Matchmaking>
       <Header>
@@ -193,18 +196,18 @@ const Rules = styled.div`
 
 const GameMode = ({ type = 'BLITZ' }) => {
   const modes = {
-    BLITZ: { icon: faFire, title: 'Blitz', rules: '5 + 0' },
-    RAPID: { icon: faFrog, title: 'Rapid', rules: '10 + 0' },
-    CLASSICAL: { icon: faChess, title: 'Classical', rules: '25 + 0' },
-    BULLET: { icon: faBolt, title: 'Bullet', rules: '1 + 0' },
+    BLITZ: { title: 'Blitz', rules: '5 + 0' },
+    RAPID: { title: 'Rapid', rules: '10 + 0' },
+    CLASSICAL: { title: 'Classical', rules: '25 + 0' },
+    BULLET: { title: 'Bullet', rules: '1 + 0' },
   };
 
-  const { icon, title, rules } = modes[type];
+  const { title, rules } = modes[type];
 
   return (
     <GameModeStyled>
       <Title>{title}</Title>
-      <FontAwesomeIcon icon={icon} />
+      <GameModeIcon mode={type} />
       <Rules>{rules}</Rules>
     </GameModeStyled>
   );

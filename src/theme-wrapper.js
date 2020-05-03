@@ -55,6 +55,9 @@ const GlobalStyle = createGlobalStyle`
     &.right {
       text-align: right;
     }
+    &.center {
+      text-align: center;
+    }
   }
 
   span {
