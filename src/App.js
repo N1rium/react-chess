@@ -20,14 +20,14 @@ import store from './store';
 const cache = new InMemoryCache();
 
 const wsLink = new WebSocketLink({
-  uri: `ws://10.8.0.34:3000/graphql`,
+  uri: `wss://backend-dot-chessports-dev-276113.ew.r.appspot.com/graphql`,
   options: {
     reconnect: true,
   },
 });
 
 const httpLink = new HttpLink({
-  uri: 'http://10.8.0.34:3000/graphql',
+  uri: 'https://backend-dot-chessports-dev-276113.ew.r.appspot.com/graphql',
   headers: {
     token: localStorage.getItem('token'),
   },
