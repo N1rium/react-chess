@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development",
-    "build": "rm -rf dist && webpack --mode production",
+    "build": "rm -rf dist && webpack --mode development",
     "deploy-dev": "webpack --mode development && gcloud app deploy --project=chessports-dev --version=${npm_package_version//./-} --quiet",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy-mattin": "webpack --mode development && gcloud app deploy"
+
   },
   "author": "",
   "license": "ISC",
