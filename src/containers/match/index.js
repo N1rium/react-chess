@@ -90,10 +90,10 @@ export default ({ matchId }) => {
   return (
     <Layout>
       <PlayerA flip={flippedBoard}>
-        <PlayerContainer player={blackPlayer} turn={turn} captured={captured} />
+        <PlayerContainer player={blackPlayer} turn={turn} captured={captured} gameOver={gameOver} />
       </PlayerA>
       <PlayerB flip={flippedBoard}>
-        <PlayerContainer player={whitePlayer} turn={turn} captured={captured} />
+        <PlayerContainer player={whitePlayer} turn={turn} captured={captured} gameOver={gameOver} />
       </PlayerB>
       <PlaybackContainer>
         <header>

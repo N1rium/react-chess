@@ -25,14 +25,14 @@ const Captured = styled.div`
   }
 `;
 
-export default ({ player, turn, captured = [] }) => {
+export default ({ player, turn, captured = [], gameOver }) => {
   const { user: { username = 'Empty slot' } = {}, side, pendingTimeoutDate, time } = player || {};
 
   return (
     <PlayerContainer>
       <UserInfo>
         <Name>{username}</Name>
-        {side === turn ? (
+        {!gameOver && side === turn ? (
           <Timer endDate={pendingTimeoutDate} format="{mm}:{ss}">
             {({ time }) => <div>{time}</div>}
           </Timer>
