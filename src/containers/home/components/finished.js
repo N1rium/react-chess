@@ -13,6 +13,7 @@ const MY_FINISHED_MATCHES = gql`
       rated
       type
       self {
+        winner
         eloChange
         user {
           username
@@ -72,7 +73,7 @@ const MatchRow = ({ match, onClick }) => {
         <span>{username}</span>
       </td>
       <td className="center">
-        <span>{eloChange}</span>
+        <span className={winner ? 'safe' : 'danger'}>{rated ? eloChange : winner ? 'Win' : 'Loss'}</span>
       </td>
       <td className="center">
         <span>{rated ? 'Rated' : 'Casual'}</span>

@@ -44,6 +44,15 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  tr {
+    &.hover {
+      cursor: pointer;
+      &:hover {
+        background: #000 !important;
+      }
+    }
+  }
+
   td {
     padding: 5px;
     &:first-child {
@@ -62,6 +71,12 @@ const GlobalStyle = createGlobalStyle`
 
   span {
     font-size: 0.8rem;
+    &.danger {
+      color: ${(props) => props.theme.danger};
+    }
+    &.safe {
+      color: ${(props) => props.theme.safe};
+    }
   }
 
   #app-container {
@@ -153,6 +168,7 @@ const ThemeWrapper = ({ children }) => {
     mediaLaptop: '1024px',
     mediaTablet: '768px',
     danger: '#dc2c2c',
+    safe: '#2ade14',
     accent: '#3b87ff',
   };
 
