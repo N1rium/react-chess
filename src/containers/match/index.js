@@ -26,6 +26,7 @@ import {
 } from './style';
 
 export default ({ matchId }) => {
+  const t0 = performance.now();
   const [match, setMatch] = useState(null);
   const [me, setMe] = useState(null);
   const [flippedBoard, setFlippedBoard] = useState(false);
@@ -36,6 +37,8 @@ export default ({ matchId }) => {
   const { data: chatData } = useSubscription(CHAT_SUBSCRIPTION, { variables: { room: matchId } });
   const [sendMove] = useMutation(SEND_MOVE);
   const [sendChatMessage] = useMutation(SEND_CHAT_MESSAGE);
+
+  const [pgnValues, setPgnValues] = useState(null);
 
   useEffect(() => {
     if (chatData && chatData.chatMessage) {
@@ -56,6 +59,7 @@ export default ({ matchId }) => {
       const { matchById } = data;
       const { participants } = matchById;
       const self = participants.find((p) => p.user.id == data.me.id);
+      setPgnValues(valuesFromPGN(matchById.pgn));
       setMatch(matchById);
       setMe(data.me);
       setFlippedBoard(self && self.side === 'b');
@@ -70,7 +74,7 @@ export default ({ matchId }) => {
   if (!match) return null;
 
   const { pgn, turn, participants = [], gameOver } = match;
-  const { fens, captured } = valuesFromPGN(pgn);
+  const { fens, captured } = pgnValues;
 
   const getGameHeader = () => {
     const turns = {
@@ -86,6 +90,8 @@ export default ({ matchId }) => {
   const whitePlayer = participants.find((p) => p.side == 'w') || null;
   const blackPlayer = participants.find((p) => p.side == 'b') || null;
   const self = participants.find((p) => p.user.id == me.id);
+
+  // console.log(performance.now() - t0);
 
   return (
     <Layout>
