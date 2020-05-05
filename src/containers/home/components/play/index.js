@@ -62,11 +62,11 @@ export default ({}) => {
 
   useEffect(() => {
     getMatchInvites();
-    window.addEventListener('beforeunload', unload);
-    return () => {
-      deleteMyInvite();
-      window.removeEventListener('beforeunload', unload);
-    };
+    // window.addEventListener('beforeunload', unload);
+    // return () => {
+    //   deleteMyInvite();
+    //   window.removeEventListener('beforeunload', unload);
+    // };
   }, []);
 
   useEffect(() => {
