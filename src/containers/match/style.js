@@ -70,9 +70,7 @@ const PlaybackChess = styled.div`
   padding: 10px;
 `;
 
-const PlayerContainer = styled.section`
-  padding: 10px;
-`;
+const PlayerContainer = styled.div``;
 
 const PlayerA = styled(PlayerContainer)`
   grid-area: ${(props) => (props.flip ? 'playerBottom' : 'playerTop')};
