@@ -35,7 +35,6 @@ const MyMatches = styled.section`
 
 export default () => {
   const { data: finished, loading } = useQuery(MY_FINISHED_MATCHES, { fetchPolicy: 'cache-and-network' });
-  console.log(finished && finished.myFinishedMatches && finished.myFinishedMatches.length);
   return (
     <MyMatches>
       <header>Latest matches</header>

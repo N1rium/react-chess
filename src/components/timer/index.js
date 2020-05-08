@@ -58,7 +58,6 @@ export default ({ endDate, interval = 1000, children, format = '{hh}:{mm}:{ss}',
 };
 
 export const Time = ({ children, time, format = '{mm}:{ss}' }) => {
-  console.warn(time);
   const { d, h, m, s, ms } = timeBetweenDates({ startDate: Date.now(), endDate: Date.now() + time });
   const str = format
     .replace('{dd}', padNumber(d, 2))

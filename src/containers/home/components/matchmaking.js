@@ -131,8 +131,6 @@ export default () => {
     }
   }, [data]);
 
-  console.log(gameModeIndex);
-
   return (
     <Matchmaking>
       <Header>

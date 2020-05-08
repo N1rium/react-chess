@@ -5,10 +5,7 @@ import Flex from '../components/styled/flex';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChessKnight } from '@fortawesome/free-solid-svg-icons';
 
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const Header = styled(Flex).attrs({ as: 'header', align: 'center', justify: 'space-between' })`
   width: 100%;
   height: 48px;
   background: #232323;
@@ -43,6 +40,7 @@ export default ({}) => {
           {/* <span>.com</span> */}
         </Title>
       </Flex>
+      <Flex align="center">Blomman</Flex>
     </Header>
   );
 };
