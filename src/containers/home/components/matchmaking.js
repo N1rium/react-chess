@@ -7,16 +7,7 @@ import Flex from '../../../components/styled/flex';
 import GameModeIcon from '../../../components/gamemode-icon';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faPlay,
-  faSpinner,
-  faFire,
-  faBolt,
-  faChess,
-  faFrog,
-  faChevronLeft,
-  faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faSpinner, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 import Timer, { Counter } from '../../../components/timer';
 
