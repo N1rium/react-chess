@@ -56,7 +56,6 @@ export default () => {
 };
 
 const MatchRow = ({ match, onClick }) => {
-  console.log(match);
   const { self, opponent, updatedDate, rated, type } = match;
   const { winner, eloChange } = self;
   const {
