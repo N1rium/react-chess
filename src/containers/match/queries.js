@@ -93,3 +93,27 @@ export const CHAT_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const FORFEIT = gql`
+  mutation forfeit($matchId: String!) {
+    forfeit(matchId: $matchId) {
+      fen
+      turn
+      pgn
+      gameOver
+      draw
+      threefold
+      checkmate
+      stalemate
+      participants {
+        pendingTimeoutDate
+        time
+        side
+        user {
+          username
+          id
+        }
+      }
+    }
+  }
+`;

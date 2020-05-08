@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Flex from 'Components/styled/flex';
 
 const Layout = styled.div`
   display: grid;
@@ -83,4 +84,21 @@ const PlayerB = styled(PlayerContainer)`
 
 const IconBtn = styled.div.attrs({ className: 'hover-btn' })``;
 
-export { Layout, Game, GameChessboard, ChatContainer, PlaybackContainer, PlaybackChess, PlayerA, PlayerB, IconBtn };
+const IconGroup = styled(Flex).attrs({ align: 'center' })`
+  & > * {
+    margin-left: 10px;
+  }
+`;
+
+export {
+  Layout,
+  Game,
+  GameChessboard,
+  ChatContainer,
+  PlaybackContainer,
+  PlaybackChess,
+  PlayerA,
+  PlayerB,
+  IconBtn,
+  IconGroup,
+};

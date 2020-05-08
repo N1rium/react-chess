@@ -3,9 +3,9 @@ import ChessBoard from 'Components/chessboard';
 import Chat from 'Components/chat';
 import PlaybackModule from 'Components/playback-module';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faSyncAlt, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
-import { GET_MATCH, SEND_MOVE, SEND_CHAT_MESSAGE, MOVE_SUBSCRIPTION, CHAT_SUBSCRIPTION } from './queries';
+import { GET_MATCH, SEND_MOVE, SEND_CHAT_MESSAGE, MOVE_SUBSCRIPTION, CHAT_SUBSCRIPTION, FORFEIT } from './queries';
 
 import PlayerContainer from './components/player-container';
 import PGNContainer from './components/pgn-container';
@@ -23,20 +23,21 @@ import {
   PlayerA,
   PlayerB,
   IconBtn,
+  IconGroup,
 } from './style';
 
 export default ({ matchId }) => {
-  const t0 = performance.now();
   const [match, setMatch] = useState(null);
   const [me, setMe] = useState(null);
   const [flippedBoard, setFlippedBoard] = useState(false);
   const [fenIndex, setFenIndex] = useState(0);
   const [chatMessages, setChatMessages] = useState([]);
-  const { data = {} } = useQuery(GET_MATCH, { variables: { id: matchId } });
+  const { data = {} } = useQuery(GET_MATCH, { fetchPolicy: 'network-only', variables: { id: matchId } });
   const { data: subData } = useSubscription(MOVE_SUBSCRIPTION, { variables: { id: matchId } });
   const { data: chatData } = useSubscription(CHAT_SUBSCRIPTION, { variables: { room: matchId } });
   const [sendMove] = useMutation(SEND_MOVE);
   const [sendChatMessage] = useMutation(SEND_CHAT_MESSAGE);
+  const [forfeit] = useMutation(FORFEIT);
 
   const [pgnValues, setPgnValues] = useState(null);
 
@@ -91,8 +92,6 @@ export default ({ matchId }) => {
   const blackPlayer = participants.find((p) => p.side == 'b') || null;
   const self = participants.find((p) => p.user.id == me.id);
 
-  // console.log(performance.now() - t0);
-
   return (
     <Layout>
       <PlayerA flip={flippedBoard}>
@@ -130,9 +129,16 @@ export default ({ matchId }) => {
       <Game>
         <header>
           {getGameHeader()}
-          <IconBtn onClick={() => setFlippedBoard(!flippedBoard)}>
-            <FontAwesomeIcon icon={faSyncAlt} />
-          </IconBtn>
+          <IconGroup>
+            {!gameOver && self && (
+              <IconBtn onClick={() => forfeit({ variables: { matchId } })}>
+                <FontAwesomeIcon icon={faFlag} />
+              </IconBtn>
+            )}
+            <IconBtn onClick={() => setFlippedBoard(!flippedBoard)}>
+              <FontAwesomeIcon icon={faSyncAlt} />
+            </IconBtn>
+          </IconGroup>
         </header>
         <div>
           <GameChessboard>

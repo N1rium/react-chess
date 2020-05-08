@@ -3,7 +3,6 @@ import store from 'store';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import HomeContainer from 'containers/home';
-import LocalPlayContainer from 'containers/localplay';
 import MatchContainer from 'containers/match';
 import LoginContainer from 'containers/login';
 import EmbedContainer from 'containers/embed';
@@ -36,7 +35,6 @@ const MatchRoute = ({ component: Component, ...rest }) => {
 const Router = () => (
   <Switch>
     <PrivateRoute exact path="/" component={HomeContainer} />
-    <PrivateRoute exact path="/localplay" component={LocalPlayContainer} />
     <MatchRoute exact path="/match/:id" component={MatchContainer} />
     <Route exact path="/embed" component={EmbedContainer} />
     <Route exact path="/login" component={LoginContainer} />

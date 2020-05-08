@@ -11,6 +11,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ThemeWrapper from './theme-wrapper';
+import { IntlProvider } from 'react-intl';
 
 import 'babel-polyfill';
 import 'whatwg-fetch';
@@ -51,14 +52,16 @@ export default () => {
   return (
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <ThemeWrapper>
-          <Header />
-          <div className="app-content">
-            <Router history={history}>
-              <Routes />
-            </Router>
-          </div>
-        </ThemeWrapper>
+        <IntlProvider locale="en">
+          <ThemeWrapper>
+            <Header />
+            <div className="app-content">
+              <Router history={history}>
+                <Routes />
+              </Router>
+            </div>
+          </ThemeWrapper>
+        </IntlProvider>
       </ApolloProvider>
     </Provider>
   );

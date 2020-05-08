@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
 import GameModeIcon from '../../../components/gamemode-icon';
+import { FormattedDate } from 'react-intl';
 
 const MY_FINISHED_MATCHES = gql`
   query myFinishedMatches {
@@ -61,13 +62,14 @@ const MatchRow = ({ match, onClick }) => {
   const {
     user: { username },
   } = opponent;
+
   return (
     <tr className="hover" onClick={onClick}>
       <td className="center">
         <GameModeIcon mode={type} />
       </td>
       <td>
-        <span>Yesterday</span>
+        <span>{new Date(+updatedDate).toLocaleDateString('sv-SV')}</span>
       </td>
       <td>
         <span>{username}</span>
