@@ -26,7 +26,7 @@ const PlayButton = styled(IconButton)`
 
 export default ({
   items = [],
-  startIndex = 0,
+  value = null,
   onChange = null,
   hasPlay = true,
   hasForward = true,
@@ -35,12 +35,10 @@ export default ({
   hasFastBackward = true,
   autoUpdate = 'never',
 }) => {
-  const [index, setIndex] = useState(startIndex);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const change = value => {
+  const change = (value) => {
     const val = Math.min(Math.max(value, 0), items.length - 1);
-    setIndex(val);
     onChange && onChange(val);
   };
 
@@ -60,7 +58,7 @@ export default ({
         )}
         {hasBackward && (
           <IconButton>
-            <FontAwesomeIcon onClick={() => change(index - 1)} icon={faStepBackward} />
+            <FontAwesomeIcon onClick={() => change(value - 1)} icon={faStepBackward} />
           </IconButton>
         )}
         {hasPlay && (
@@ -70,7 +68,7 @@ export default ({
         )}
         {hasForward && (
           <IconButton>
-            <FontAwesomeIcon onClick={() => change(index + 1)} icon={faStepForward} />
+            <FontAwesomeIcon onClick={() => change(value + 1)} icon={faStepForward} />
           </IconButton>
         )}
         {hasFastForward && (
@@ -79,9 +77,9 @@ export default ({
           </IconButton>
         )}
       </PlaybackPanel>
-      <SliderContainer align="center" justify="center">
-        <Slider value={index} min="0" max={Math.max(0, items.length - 1)} onChange={e => change(e.target.value)} />
-      </SliderContainer>
+      {/* <SliderContainer align="center" justify="center">
+        <Slider value={value} min="0" max={Math.max(0, items.length - 1)} onChange={(e) => change(e.target.value)} />
+      </SliderContainer> */}
     </PlaybackModule>
   );
 };

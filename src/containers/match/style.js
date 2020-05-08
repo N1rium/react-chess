@@ -7,11 +7,11 @@ const Layout = styled.div`
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   grid-template-areas:
-    'chat playerTop playback'
-    'chat game playback'
+    'game-info playerTop clock-a'
     'chat game pgn'
     'chat game pgn'
-    'chat playerBottom pgn';
+    'chat game pgn'
+    'chat playerBottom clock-b';
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: auto auto 1fr 1fr auto;
   justify-content: stretch;
@@ -22,14 +22,9 @@ const Layout = styled.div`
 
 const Game = styled.section`
   grid-area: game;
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
   & > div {
     width: 100%;
-    height: calc(100% - 45px);
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,13 +48,15 @@ const ChatContainer = styled.section`
   }
 `;
 
-const PlaybackContainer = styled.section`
-  grid-area: playback;
-  footer,
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+const PlaybackContainer = styled(Flex).attrs({ as: 'section', align: 'center', direction: 'row' })`
+  grid-area: game-info;
+  padding: 10px;
+  text-transform: lowercase;
+  & > * {
+    margin-right: 10px;
+    &:first-child {
+      font-size: 1.5rem;
+    }
   }
 `;
 
@@ -88,7 +85,23 @@ const IconGroup = styled(Flex).attrs({ align: 'center' })`
   }
 `;
 
+const ClockContainer = styled.div``;
+
+const ClockContainerA = styled(ClockContainer)`
+  grid-area: ${(props) => (props.flip ? 'clock-b' : 'clock-a')};
+`;
+
+const ClockContainerB = styled(ClockContainer)`
+  grid-area: ${(props) => (props.flip ? 'clock-a' : 'clock-b')};
+`;
+
+const PGNWrapper = styled.section`
+  grid-area: pgn;
+`;
+
 export {
+  ClockContainerA,
+  ClockContainerB,
   Layout,
   Game,
   GameChessboard,
@@ -99,4 +112,5 @@ export {
   PlayerB,
   IconBtn,
   IconGroup,
+  PGNWrapper,
 };

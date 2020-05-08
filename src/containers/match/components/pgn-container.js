@@ -3,9 +3,7 @@ import styled from 'styled-components';
 
 import { turnsFromPGN } from '../../../utils/chess-helper';
 
-const PGNContainer = styled.section`
-  grid-area: pgn;
-`;
+const PGNContainer = styled.main``;
 
 const Turn = styled.span``;
 
@@ -28,26 +26,19 @@ const Row = styled.div`
 
 const Move = styled.span.attrs({ className: 'hover-btn' })``;
 
-const Main = styled.main`
-  height: 100%;
-  overflow: auto;
-`;
-
 export default ({ pgn = null }) => {
   const turns = turnsFromPGN({ pgn });
   return (
     <PGNContainer>
-      <Main>
-        {turns.length > 0 &&
-          turns.map((turn, i) => (
-            <Row key={i}>
-              <Turn>{i + 1}</Turn>
-              {turn.map((move, j) => (
-                <Move key={j}>{move}</Move>
-              ))}
-            </Row>
-          ))}
-      </Main>
+      {turns.length > 0 &&
+        turns.map((turn, i) => (
+          <Row key={i}>
+            <Turn>{i + 1}</Turn>
+            {turn.map((move, j) => (
+              <Move key={j}>{move}</Move>
+            ))}
+          </Row>
+        ))}
     </PGNContainer>
   );
 };

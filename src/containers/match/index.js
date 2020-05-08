@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ChessBoard from 'Components/chessboard';
 import Chat from 'Components/chat';
 import PlaybackModule from 'Components/playback-module';
+import GameModeIcon from 'Components/gamemode-icon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSyncAlt, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
@@ -9,11 +10,14 @@ import { GET_MATCH, SEND_MOVE, SEND_CHAT_MESSAGE, MOVE_SUBSCRIPTION, CHAT_SUBSCR
 
 import PlayerContainer from './components/player-container';
 import PGNContainer from './components/pgn-container';
+import ClockContainer from './components/clock-container';
 import { moveSound } from './sounds';
 
 import { valuesFromPGN } from 'utils/chess-helper';
 
 import {
+  ClockContainerA,
+  ClockContainerB,
   Layout,
   Game,
   GameChessboard,
@@ -24,6 +28,7 @@ import {
   PlayerB,
   IconBtn,
   IconGroup,
+  PGNWrapper,
 } from './style';
 
 export default ({ matchId }) => {
@@ -60,7 +65,9 @@ export default ({ matchId }) => {
       const { matchById } = data;
       const { participants } = matchById;
       const self = participants.find((p) => p.user.id == data.me.id);
-      setPgnValues(valuesFromPGN(matchById.pgn));
+      const values = valuesFromPGN(matchById.pgn);
+      setPgnValues(values);
+      setFenIndex(values.fens.length - 1);
       setMatch(matchById);
       setMe(data.me);
       setFlippedBoard(self && self.side === 'b');
@@ -74,7 +81,7 @@ export default ({ matchId }) => {
 
   if (!match) return null;
 
-  const { pgn, turn, participants = [], gameOver } = match;
+  const { pgn, turn, participants = [], gameOver, timeControl, type, rated } = match;
   const { fens, captured } = pgnValues;
 
   const getGameHeader = () => {
@@ -95,23 +102,33 @@ export default ({ matchId }) => {
   return (
     <Layout>
       <PlayerA flip={flippedBoard}>
-        <PlayerContainer player={blackPlayer} turn={turn} captured={captured} gameOver={gameOver} />
+        <PlayerContainer
+          player={blackPlayer}
+          turn={turn}
+          captured={captured}
+          gameOver={gameOver}
+          timeControl={timeControl}
+        />
       </PlayerA>
+      <ClockContainerA flip={flippedBoard}>
+        <ClockContainer match={match} player={whitePlayer} />
+      </ClockContainerA>
       <PlayerB flip={flippedBoard}>
-        <PlayerContainer player={whitePlayer} turn={turn} captured={captured} gameOver={gameOver} />
+        <PlayerContainer
+          player={whitePlayer}
+          turn={turn}
+          captured={captured}
+          gameOver={gameOver}
+          timeControl={timeControl}
+        />
       </PlayerB>
+      <ClockContainerB flip={flippedBoard}>
+        <ClockContainer match={match} player={blackPlayer} />
+      </ClockContainerB>
       <PlaybackContainer>
-        <header>
-          <div />
-          <div>Playback</div>
-          <div />
-        </header>
-        <PlaybackChess>
-          <ChessBoard pgn={pgn} moveIndex={fenIndex} showIndexes={false} />
-        </PlaybackChess>
-        <footer>
-          <PlaybackModule items={fens} onChange={(i) => setFenIndex(i)} />
-        </footer>
+        <GameModeIcon mode={type} />
+        <div>{type}</div>
+        <div>{rated ? 'Rated' : 'Casual'}</div>
       </PlaybackContainer>
       <ChatContainer>
         <header>
@@ -127,8 +144,21 @@ export default ({ matchId }) => {
         ></Chat>
       </ChatContainer>
       <Game>
+        <div>
+          <GameChessboard>
+            <ChessBoard
+              pgn={pgn}
+              // moveIndex={fenIndex}
+              side={(self && self.side) || null}
+              flip={flippedBoard}
+              onMove={onMove}
+            />
+          </GameChessboard>
+        </div>
+      </Game>
+      <PGNWrapper>
         <header>
-          {getGameHeader()}
+          {/* {getGameHeader()} */}
           <IconGroup>
             {!gameOver && self && (
               <IconBtn onClick={() => forfeit({ variables: { matchId } })}>
@@ -140,13 +170,11 @@ export default ({ matchId }) => {
             </IconBtn>
           </IconGroup>
         </header>
-        <div>
-          <GameChessboard>
-            <ChessBoard pgn={pgn} side={(self && self.side) || null} flip={flippedBoard} onMove={onMove} />
-          </GameChessboard>
-        </div>
-      </Game>
-      <PGNContainer pgn={pgn} />
+        <PGNContainer pgn={pgn} />
+        <footer>
+          <PlaybackModule value={fenIndex} items={fens} onChange={(i) => setFenIndex(i)} />
+        </footer>
+      </PGNWrapper>
     </Layout>
   );
 };

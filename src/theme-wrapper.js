@@ -145,6 +145,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     & > header, & > footer {
+      position: relative;
       z-index: 1;
       flex: 0 0 auto;
       background: ${(props) => props.theme.surface};

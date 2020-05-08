@@ -1,25 +1,32 @@
 import gql from 'graphql-tag';
 
+const matchFragment = `
+  fen
+  turn
+  pgn
+  gameOver
+  draw
+  threefold
+  checkmate
+  stalemate
+  timeControl
+  type
+  rated
+  participants {
+    side
+    pendingTimeoutDate
+    time
+    user {
+      id
+      username
+    }
+  }
+`;
+
 export const GET_MATCH = gql`
   query getMatchById($id: String!) {
     matchById(id: $id) {
-      fen
-      turn
-      pgn
-      gameOver
-      draw
-      threefold
-      checkmate
-      stalemate
-      participants {
-        side
-        pendingTimeoutDate
-        time
-        user {
-          id
-          username
-        }
-      }
+      ${matchFragment}
     }
     me {
       id
@@ -31,23 +38,7 @@ export const GET_MATCH = gql`
 export const SEND_MOVE = gql`
   mutation matchMove($input: MatchMoveInput!) {
     matchMove(input: $input) {
-      fen
-      turn
-      pgn
-      gameOver
-      draw
-      threefold
-      checkmate
-      stalemate
-      participants {
-        pendingTimeoutDate
-        time
-        side
-        user {
-          username
-          id
-        }
-      }
+      ${matchFragment}
     }
   }
 `;
@@ -64,23 +55,7 @@ export const SEND_CHAT_MESSAGE = gql`
 export const MOVE_SUBSCRIPTION = gql`
   subscription matchMoveMade($id: String!) {
     matchMoveMade(id: $id) {
-      fen
-      turn
-      pgn
-      gameOver
-      draw
-      threefold
-      checkmate
-      stalemate
-      participants {
-        pendingTimeoutDate
-        time
-        side
-        user {
-          username
-          id
-        }
-      }
+      ${matchFragment}
     }
   }
 `;
@@ -97,23 +72,7 @@ export const CHAT_SUBSCRIPTION = gql`
 export const FORFEIT = gql`
   mutation forfeit($matchId: String!) {
     forfeit(matchId: $matchId) {
-      fen
-      turn
-      pgn
-      gameOver
-      draw
-      threefold
-      checkmate
-      stalemate
-      participants {
-        pendingTimeoutDate
-        time
-        side
-        user {
-          username
-          id
-        }
-      }
+      ${matchFragment}
     }
   }
 `;
