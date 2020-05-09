@@ -17,20 +17,26 @@ const Input = styled.input.attrs({ type: 'text', placeholder: 'Send a message' }
   flex: 1 1 auto;
 `;
 
-export default ({ messages = [], onSendMessage = null }) => {
+export default ({ messages = [], onSendMessage = null, minLength = 1, delay = 500 }) => {
   const [message, setMessage] = useState('');
+  const [canSend, setCanSend] = useState(true);
 
-  const sendMessage = e => {
+  const sendMessage = (e) => {
+    e && e.preventDefault();
+    if (message.length < minLength || !canSend) return;
     onSendMessage && onSendMessage(message);
     setMessage('');
-    e && e.preventDefault();
+    setCanSend(false);
+    setTimeout(() => {
+      setCanSend(true);
+    }, delay);
   };
 
   return (
     <Chat direction="column">
       <MessageArea messages={messages} />
       <InputArea onSubmit={sendMessage}>
-        <Input value={message} onChange={e => setMessage(e.target.value)} />
+        <Input value={message} onChange={(e) => setMessage(e.target.value)} />
       </InputArea>
     </Chat>
   );
