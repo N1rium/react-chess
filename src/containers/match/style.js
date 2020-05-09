@@ -88,11 +88,11 @@ const IconGroup = styled(Flex).attrs({ align: 'center' })`
 const ClockContainer = styled.div``;
 
 const ClockContainerA = styled(ClockContainer)`
-  grid-area: ${(props) => (props.flip ? 'clock-b' : 'clock-a')};
+  grid-area: ${(props) => (props.flip ? 'clock-a' : 'clock-b')};
 `;
 
 const ClockContainerB = styled(ClockContainer)`
-  grid-area: ${(props) => (props.flip ? 'clock-a' : 'clock-b')};
+  grid-area: ${(props) => (props.flip ? 'clock-b' : 'clock-a')};
 `;
 
 const PGNWrapper = styled.section`
