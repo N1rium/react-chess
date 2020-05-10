@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
 import GameModeIcon from '../../../components/gamemode-icon';
-import { FormattedDate } from 'react-intl';
+import Flex from 'Components/styled/flex';
 
 const MY_FINISHED_MATCHES = gql`
   query myFinishedMatches {
@@ -33,11 +33,16 @@ const MyMatches = styled.section`
   grid-area: finished;
 `;
 
+const Header = styled(Flex).attrs({ as: 'header', justify: 'space-between' })``;
+
 export default () => {
   const { data: finished, loading } = useQuery(MY_FINISHED_MATCHES, { fetchPolicy: 'cache-and-network' });
+
   return (
     <MyMatches>
-      <header>Latest matches</header>
+      <Header>
+        <div>Latest matches</div>
+      </Header>
       <main>
         {!loading && (
           <table className="zebra">

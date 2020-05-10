@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
+import Grid from 'Components/styled/grid';
 import Chat from '../../components/chat';
 import Profile from './components/profile';
 import Play from './components/play';
 import Ongoing from './components/ongoing';
 import Finished from './components/finished';
 import Matchmaking from './components/matchmaking';
+import Friends from './components/friends';
 
 export const SEND_CHAT_MESSAGE = gql`
   mutation sendChatMessage($input: ChatMessageInput!) {
@@ -27,18 +29,13 @@ export const CHAT_SUBSCRIPTION = gql`
   }
 `;
 
-const Layout = styled.div`
+const Layout = styled(Grid).attrs({ align: 'stretch', justify: 'stretch' })`
   display: grid;
-  padding: 10px;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
   grid-template-areas:
     'profile lobbies lobbies matchmaking'
-    'chat chat ongoing finished';
-  grid-template-columns: auto;
+    'friends chat ongoing finished';
+  grid-template-columns: 320px auto auto 320px;
   grid-template-rows: 50% auto;
-  justify-content: stretch;
-  align-items: stretch;
   width: 100%;
   height: 100%;
 `;
@@ -64,6 +61,7 @@ export default () => {
   return (
     <Layout>
       <Profile />
+      <Friends />
       <Play />
       <Matchmaking />
       <ChatContainer>

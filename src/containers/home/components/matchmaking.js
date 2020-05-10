@@ -3,13 +3,14 @@ import history from '../../../store/history';
 import gql from 'graphql-tag';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 import styled from 'styled-components';
-import Flex from '../../../components/styled/flex';
-import GameModeIcon from '../../../components/gamemode-icon';
+import Flex from 'Components/styled/flex';
+import GameModeIcon from 'Components/gamemode-icon';
+import DotIndicator from 'Components/dot-indicator';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faSpinner, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-import Timer, { Counter } from '../../../components/timer';
+import Timer, { Counter } from 'Components/timer';
 
 const ME = gql`
   query me {
@@ -148,6 +149,10 @@ export default () => {
           </GameModes>
         )}
       </main>
+      <DotIndicator
+        value={((gameModeIndex % gameModes.length) + gameModes.length) % gameModes.length}
+        values={gameModes}
+      />
       <Footer>
         <PlayButton loading={loading.toString()} onClick={click}>
           {loading ? <FontAwesomeIcon icon={faSpinner} spin inverse /> : <FontAwesomeIcon icon={faPlay} />}

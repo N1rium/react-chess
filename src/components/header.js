@@ -3,7 +3,7 @@ import history from '../store/history';
 import styled from 'styled-components';
 import Flex from '../components/styled/flex';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChessKnight } from '@fortawesome/free-solid-svg-icons';
+import { faChessKnight, faBell } from '@fortawesome/free-solid-svg-icons';
 
 const Header = styled(Flex).attrs({ as: 'header', align: 'center', justify: 'space-between' })`
   width: 100%;
@@ -30,6 +30,18 @@ const Title = styled.h1`
   }
 `;
 
+const Bell = styled.div.attrs({ className: 'hover-btn' })`
+  svg {
+    font-size: 1rem;
+  }
+`;
+
+const RightSegment = styled(Flex).attrs({ align: 'center' })`
+  & > * {
+    margin: 0px 5px;
+  }
+`;
+
 export default ({}) => {
   return (
     <Header>
@@ -40,7 +52,12 @@ export default ({}) => {
           {/* <span>.com</span> */}
         </Title>
       </Flex>
-      <Flex align="center">Blomman</Flex>
+      <RightSegment>
+        <Bell>
+          <FontAwesomeIcon icon={faBell} />
+        </Bell>
+        <span>Blomman</span>
+      </RightSegment>
     </Header>
   );
 };

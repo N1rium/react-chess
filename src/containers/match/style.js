@@ -1,26 +1,22 @@
 import styled from 'styled-components';
 import Flex from 'Components/styled/flex';
+import Grid from 'Components/styled/grid';
 
-const Layout = styled.div`
+const Layout = styled(Grid).attrs({ align: 'stretch', justify: 'stretch' })`
   display: grid;
-  padding: 10px;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
   grid-template-areas:
     'game-info playerTop clock-a'
     'chat game pgn'
     'chat game pgn'
     'chat game pgn'
     'chat playerBottom clock-b';
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 320px auto 320px;
   grid-template-rows: auto auto 1fr 1fr auto;
-  justify-content: stretch;
-  align-items: stretch;
   width: 100%;
   height: 100%;
 `;
 
-const Game = styled.section`
+const Game = styled.div`
   grid-area: game;
   & > div {
     width: 100%;
