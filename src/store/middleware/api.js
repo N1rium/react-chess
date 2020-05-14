@@ -1,5 +1,3 @@
-import * as actions from 'Consts/action-types';
-
 const getToken = () => localStorage.getItem('token');
 
 export const REQUEST = async (url, method, body) => {
@@ -35,15 +33,15 @@ export const REQUEST = async (url, method, body) => {
 
 const errorHandler = (error, e) => {
   if (error && typeof error === 'object') {
-    error.forEach(f => dispatch(f(e)));
+    error.forEach((f) => dispatch(f(e)));
   } else if (error) {
     dispatch(error(e));
   }
 };
 
-const api = store => next => async action => {
+const api = (store) => (next) => async (action) => {
   const { dispatch } = store;
-  if (action.type !== actions.API) return next(action);
+  if (action.type !== 'API') return next(action);
 
   const {
     payload: {
@@ -68,7 +66,7 @@ const api = store => next => async action => {
       data = await REQUEST(url, method, body, contextType);
       if (data) {
         if (success && typeof success === 'object') {
-          success.forEach(f => dispatch(f(data)));
+          success.forEach((f) => dispatch(f(data)));
         } else if (success) {
           dispatch(success(data));
         }

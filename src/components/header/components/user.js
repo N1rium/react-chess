@@ -4,6 +4,7 @@ import history from '../../../store/history';
 import Flex from 'Components/styled/flex';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import useApi from 'Hooks/api';
 
 const User = styled.div``;
 const Cell = styled.tr.attrs({ className: 'hover' })`
