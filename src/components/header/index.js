@@ -19,6 +19,7 @@ const NOTIFICATIONS = gql`
     me {
       id
       username
+      glootToken
     }
   }
 `;
@@ -98,7 +99,7 @@ const RightSegment = styled(Flex).attrs({ align: 'center' })`
 `;
 
 export default ({}) => {
-  const { data, loading } = useQuery(NOTIFICATIONS);
+  const { data, loading } = useQuery(NOTIFICATIONS, { fetchPolicy: 'cache-and-network' });
   const [state, setState] = useState(false);
   const notificationNode = useRef(null);
   const userNode = useRef(null);

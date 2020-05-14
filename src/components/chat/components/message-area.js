@@ -22,7 +22,7 @@ const Name = styled.div`
 
 const Content = styled.div``;
 
-const MessageComp = ({ name, content }) => {
+const MessageComp = ({ id, name, content }) => {
   return (
     <Message>
       <Name>{name}:</Name>

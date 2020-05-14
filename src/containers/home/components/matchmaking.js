@@ -45,7 +45,7 @@ const Matchmaking = styled.section`
   grid-area: matchmaking;
 `;
 
-const PlayButton = styled.button.attrs()`
+const PlayButton = styled.button.attrs((props) => ({ className: props.type === 'GLOOT' ? 'gloot' : '' }))`
   width: 100%;
 `;
 const Footer = styled.footer`
@@ -93,7 +93,7 @@ const ArrowRight = styled(Arrow)`
 
 export default () => {
   const [loading, setLoading] = useState(false);
-  const [gameModes, setGameModes] = useState(['BLITZ', 'RAPID', 'CLASSICAL', 'BULLET']);
+  const [gameModes, setGameModes] = useState(['GLOOT', 'BLITZ', 'RAPID', 'CLASSICAL', 'BULLET']);
   const [gameModeIndex, setGameModeIndex] = useState(0);
   const [messages, setMessages] = useState(['Searching for match...']);
   const { data: meData } = useQuery(ME);
@@ -157,8 +157,18 @@ export default () => {
         />
       )}
       <Footer>
-        <PlayButton loading={loading.toString()} onClick={click}>
-          {loading ? <FontAwesomeIcon icon={faSpinner} spin inverse /> : <FontAwesomeIcon icon={faPlay} />}
+        <PlayButton
+          type={gameModes[((gameModeIndex % gameModes.length) + gameModes.length) % gameModes.length]}
+          loading={loading.toString()}
+          onClick={click}
+        >
+          {loading ? (
+            <FontAwesomeIcon icon={faSpinner} spin inverse />
+          ) : gameModes[((gameModeIndex % gameModes.length) + gameModes.length) % gameModes.length] === 'GLOOT' ? (
+            'Play $2'
+          ) : (
+            <FontAwesomeIcon icon={faPlay} />
+          )}
         </PlayButton>
       </Footer>
     </Matchmaking>
@@ -193,6 +203,7 @@ const Rules = styled.div`
 
 const GameMode = ({ type = 'BLITZ' }) => {
   const modes = {
+    GLOOT: { title: 'Esports', rules: '$4' },
     BLITZ: { title: 'Blitz', rules: '5 + 0' },
     RAPID: { title: 'Rapid', rules: '10 + 0' },
     CLASSICAL: { title: 'Classical', rules: '25 + 0' },
@@ -204,7 +215,8 @@ const GameMode = ({ type = 'BLITZ' }) => {
   return (
     <GameModeStyled>
       <Title>{title}</Title>
-      <GameModeIcon mode={type} />
+      {type !== 'GLOOT' && <GameModeIcon mode={type} />}
+      {type === 'GLOOT' && <img style={{ width: '48px' }} src="https://gloot.com/assets/svg/logo.svg" />}
       <Rules>{rules}</Rules>
     </GameModeStyled>
   );

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { REQUEST } from 'Store/middleware/api';
 
 const useApi = ({ url, method = 'GET', body }) => {
-  const [response, setResponse] = useState(null);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
 
@@ -11,7 +11,7 @@ const useApi = ({ url, method = 'GET', body }) => {
       try {
         setLoading(true);
         const resp = await REQUEST(url, method, body);
-        setResponse(resp);
+        setData(resp);
         setLoading(false);
       } catch (e) {
         setLoading(false);
@@ -21,7 +21,7 @@ const useApi = ({ url, method = 'GET', body }) => {
     fetchData();
   }, []);
 
-  return { response, loading, error };
+  return { data, loading, error };
 };
 
 export default useApi;

@@ -114,6 +114,9 @@ const GlobalStyle = createGlobalStyle`
       background-color: #63676f;
       cursor: not-allowed;
     }
+    &.gloot {
+      background-color: #0fa256;
+    }
   }
 
   .hover-btn {
