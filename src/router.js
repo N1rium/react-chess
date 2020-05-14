@@ -35,7 +35,7 @@ const MatchRoute = ({ ...rest }) => {
 
 const ProfileRoute = ({ ...rest }) => {
   return (
-    <Route
+    <PrivateRoute
       {...rest}
       render={(routeProps) => {
         const {

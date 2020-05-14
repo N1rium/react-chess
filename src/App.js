@@ -3,7 +3,7 @@ import history from './store/history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import Routes from './router';
-import Header from './components/header';
+import Header from 'Components/header/index.js';
 
 import { split } from 'apollo-link';
 import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';

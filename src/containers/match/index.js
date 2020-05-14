@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSyncAlt, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 import { GET_MATCH, SEND_MOVE, SEND_CHAT_MESSAGE, MOVE_SUBSCRIPTION, CHAT_SUBSCRIPTION, FORFEIT } from './queries';
+import { getGameHeader } from 'Utils/match';
 
 import PlayerContainer from './components/player-container';
 import PGNContainer from './components/pgn-container';
@@ -57,6 +58,8 @@ export default ({ matchId }) => {
       const { matchMoveMade } = subData;
       moveSound.play();
       setMatch(matchMoveMade);
+      const values = valuesFromPGN(matchMoveMade.pgn);
+      setPgnValues(values);
     }
   }, [subData]);
 
@@ -84,16 +87,16 @@ export default ({ matchId }) => {
   const { pgn, turn, participants = [], gameOver, timeControl, type, rated } = match;
   const { fens, captured } = pgnValues;
 
-  const getGameHeader = () => {
-    const turns = {
-      w: 'White',
-      b: 'Black',
-    };
-    if (gameOver) {
-      return 'Match has ended!';
-    }
-    return `${turns[turn]}s turn!`;
-  };
+  // const getGameHeader = () => {
+  //   const turns = {
+  //     w: 'White',
+  //     b: 'Black',
+  //   };
+  //   if (gameOver) {
+  //     return 'Match has ended!';
+  //   }
+  //   return `${turns[turn]}s turn!`;
+  // };
 
   const whitePlayer = participants.find((p) => p.side == 'w') || null;
   const blackPlayer = participants.find((p) => p.side == 'b') || null;
@@ -158,7 +161,7 @@ export default ({ matchId }) => {
       </Game>
       <PGNWrapper>
         <header>
-          {/* {getGameHeader()} */}
+          {getGameHeader(match)}
           <IconGroup>
             {!gameOver && self && (
               <IconBtn onClick={() => forfeit({ variables: { matchId } })}>

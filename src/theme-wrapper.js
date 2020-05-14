@@ -67,6 +67,9 @@ const GlobalStyle = createGlobalStyle`
     &.center {
       text-align: center;
     }
+    &.left {
+      text-align: left;
+    }
   }
 
   span {

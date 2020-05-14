@@ -25,7 +25,6 @@ const Section = styled(Flex).attrs({ as: 'section', align: 'center' })`
 
 export default ({ player, captured = [] }) => {
   const { user: { username = 'Empty slot' } = {}, side } = player || {};
-
   return (
     <Section align="center" justify="space-between">
       <UserInfo>

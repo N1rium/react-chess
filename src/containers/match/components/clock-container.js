@@ -8,6 +8,7 @@ import { faClock } from '@fortawesome/free-solid-svg-icons';
 const ClockContainer = styled(Flex).attrs({ as: 'section', align: 'center' })`
   padding: 10px;
   font-size: 1.5rem;
+  height: 60px;
 `;
 
 const TimerContainer = styled.div`

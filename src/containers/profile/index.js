@@ -110,9 +110,7 @@ export default ({ id }) => {
             <header>Matches played</header>
             <Matches>
               {finishedMatches.map((match) => (
-                <ChessboardWrapper key={match.id}>
-                  <Chessboard pgn={match.pgn} />
-                </ChessboardWrapper>
+                <ChessboardWrapper key={match.id}>{/* <Chessboard pgn={match.pgn} /> */}</ChessboardWrapper>
               ))}
             </Matches>
           </section>

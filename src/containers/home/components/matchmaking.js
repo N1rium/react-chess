@@ -149,10 +149,13 @@ export default () => {
           </GameModes>
         )}
       </main>
-      <DotIndicator
-        value={((gameModeIndex % gameModes.length) + gameModes.length) % gameModes.length}
-        values={gameModes}
-      />
+
+      {!loading && (
+        <DotIndicator
+          value={((gameModeIndex % gameModes.length) + gameModes.length) % gameModes.length}
+          values={gameModes}
+        />
+      )}
       <Footer>
         <PlayButton loading={loading.toString()} onClick={click}>
           {loading ? <FontAwesomeIcon icon={faSpinner} spin inverse /> : <FontAwesomeIcon icon={faPlay} />}

@@ -9,6 +9,7 @@ const matchFragment = `
   threefold
   checkmate
   stalemate
+  timedout
   timeControl
   type
   rated
@@ -16,6 +17,7 @@ const matchFragment = `
     side
     pendingTimeoutDate
     time
+    winner
     user {
       id
       username
