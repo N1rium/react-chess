@@ -13,6 +13,7 @@ const matchFragment = `
   timeControl
   type
   rated
+  forfeit
   participants {
     side
     pendingTimeoutDate

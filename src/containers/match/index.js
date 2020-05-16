@@ -104,6 +104,7 @@ export default ({ matchId }) => {
 
   return (
     <Layout>
+      <section style={{ gridArea: 'game-state', padding: '10px', fontWeight: 'bold' }}>{getGameHeader(match)}</section>
       <PlayerA flip={flippedBoard}>
         <PlayerContainer
           player={blackPlayer}
@@ -146,7 +147,7 @@ export default ({ matchId }) => {
           onSendMessage={(message) => sendChatMessage({ variables: { input: { room: matchId, message } } })}
         ></Chat>
       </ChatContainer>
-      <Game>
+      <Game gameOver={gameOver}>
         <div>
           <GameChessboard>
             <ChessBoard
@@ -161,7 +162,6 @@ export default ({ matchId }) => {
       </Game>
       <PGNWrapper>
         <header>
-          {getGameHeader(match)}
           <IconGroup>
             {!gameOver && self && (
               <IconBtn onClick={() => forfeit({ variables: { matchId } })}>

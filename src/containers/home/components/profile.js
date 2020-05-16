@@ -9,6 +9,9 @@ const ME = gql`
       id
       username
       blitzElo
+      bulletElo
+      classicalElo
+      rapidElo
     }
   }
 `;
@@ -28,7 +31,18 @@ export default ({}) => {
       </header>
       {!loading && data && (
         <main>
-          <span>Blitz: {data.me.blitzElo}</span>
+          <div>
+            <span>Bullet: {data.me.bulletElo}</span>
+          </div>
+          <div>
+            <span>Blitz: {data.me.blitzElo}</span>
+          </div>
+          <div>
+            <span>Rapid: {data.me.rapidElo}</span>
+          </div>
+          <div>
+            <span>Classical: {data.me.classicalElo}</span>
+          </div>
         </main>
       )}
     </Profile>

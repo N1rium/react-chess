@@ -6,7 +6,7 @@ const Layout = styled(Grid).attrs({ align: 'stretch', justify: 'stretch' })`
   display: grid;
   grid-template-areas:
     'game-info playerTop clock-a'
-    'chat game pgn'
+    'game-state game pgn'
     'chat game pgn'
     'chat game pgn'
     'chat playerBottom clock-b';

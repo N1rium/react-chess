@@ -15,6 +15,7 @@ const NOTIFICATIONS = gql`
       id
       read
       data
+      type
     }
     me {
       id
@@ -141,7 +142,7 @@ export default ({}) => {
           </Bell>
           {state === 'notifications' && (
             <NotificationContainer>
-              <Notifications list={data && data.myNotifications} loading={loading} />
+              <Notifications user={data && data.me} list={data && data.myNotifications} loading={loading} />
             </NotificationContainer>
           )}
         </BellContainer>

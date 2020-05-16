@@ -1,23 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
+import history from '../../../store/history';
 
-const Notifications = styled.div`
-  padding: 10px;
+const Wrapper = styled.div`
+  max-height: 178px;
+  overflow-y: auto;
 `;
 
-export default ({ list = [], loading }) => {
+const Notifications = styled.table`
+  td {
+    padding: 10px;
+  }
+`;
+
+export default ({ user, list = [], loading }) => {
   return (
-    <Notifications>
-      {!loading && !list.length && <span>You have no notifications</span>}
-      {!loading && list.map((notification) => <Notification key={notification.id} notification={notification} />)}
-    </Notifications>
+    <Wrapper>
+      <Notifications>
+        <tbody>
+          {!loading && !list.length && <tr>You have no notifications</tr>}
+          {!loading &&
+            list.map((notification) => <Notification user={user} key={notification.id} notification={notification} />)}
+        </tbody>
+      </Notifications>
+    </Wrapper>
   );
 };
 
-const StyledNotification = styled.div``;
-const Notification = ({ notification }) => {
+const StyledNotification = styled.tr.attrs({ className: 'hover' })``;
+const Notification = ({ user, notification }) => {
   const {
-    data: { header },
+    data: { header, id, participants = [] },
+    type,
   } = notification;
-  return <StyledNotification>{header}</StyledNotification>;
+
+  const self = participants.find((p) => +p.user.id === +user.id);
+  const { winner = false } = self || {};
+
+  return type === 'MATCH_ENDED' ? (
+    <StyledNotification onClick={() => history.push(`/match/${id}`)}>
+      <td>
+        <span>Match ended - {winner ? 'You won $4' : 'You lost $2'}</span>
+      </td>
+    </StyledNotification>
+  ) : (
+    <StyledNotification>
+      <td>
+        <span>{header}</span>
+      </td>
+    </StyledNotification>
+  );
 };
